@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>How to check SSD and NVMe health on Linux — Innards</title>
+  <meta name="description" content="smartctl and nvme-cli step by step: percentage_used, available spare, unsafe shutdowns, media errors, temperature history, and which numbers mean replace.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://innards.app/guides/check-ssd-nvme-health-linux">
+  <meta name="author" content="Eugene Trotsan">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+  <link rel="stylesheet" href="../style.css">
+  <script src="../site.js" defer></script>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Innards">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="How to check SSD and NVMe health on Linux — Innards">
+  <meta property="og:description" content="smartctl and nvme-cli step by step: percentage_used, available spare, unsafe shutdowns, media errors, temperature history, and which numbers mean replace.">
+  <meta property="og:url" content="https://innards.app/guides/check-ssd-nvme-health-linux">
+  <meta property="og:image" content="https://innards.app/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+  <meta property="article:published_time" content="2026-09-21">
+  <meta property="article:modified_time" content="2026-09-21">
+  <meta property="article:author" content="https://github.com/buengenio">
+  <meta property="article:section" content="Guides">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to check SSD and NVMe health on Linux — Innards">
+  <meta name="twitter:description" content="smartctl and nvme-cli step by step: percentage_used, available spare, unsafe shutdowns, media errors, temperature history, and which numbers mean replace.">
+  <meta name="twitter:image" content="https://innards.app/og.png">
+  <meta name="twitter:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Person",
+   "@id": "https://innards.app/#eugene",
+   "name": "Eugene Trotsan",
+   "url": "https://github.com/buengenio",
+   "email": "mailto:eugene.trotsan@gmail.com",
+   "sameAs": [
+    "https://github.com/buengenio"
+   ]
+  },
+  {
+   "@type": "Article",
+   "@id": "https://innards.app/guides/check-ssd-nvme-health-linux#article",
+   "headline": "How to check SSD and NVMe health on Linux",
+   "description": "smartctl and nvme-cli step by step: percentage_used, available spare, unsafe shutdowns, media errors, temperature history, and which numbers mean replace.",
+   "url": "https://innards.app/guides/check-ssd-nvme-health-linux",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://innards.app/guides/check-ssd-nvme-health-linux"
+   },
+   "datePublished": "2026-09-21",
+   "dateModified": "2026-09-21",
+   "author": {
+    "@id": "https://innards.app/#eugene"
+   },
+   "publisher": {
+    "@id": "https://innards.app/#eugene"
+   },
+   "image": "https://innards.app/og.png",
+   "inLanguage": "en",
+   "wordCount": 1090,
+   "isPartOf": {
+    "@id": "https://innards.app/#website"
+   },
+   "about": {
+    "@id": "https://innards.app/#app"
+   },
+   "articleSection": "Guides"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Innards",
+     "item": "https://innards.app/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Guides",
+     "item": "https://innards.app/guides/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "How to check SSD and NVMe health on Linux",
+     "item": "https://innards.app/guides/check-ssd-nvme-health-linux"
+    }
+   ]
+  }
+ ]
+}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Innards home"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/download">Download</a><a href="/pricing">Pricing</a><a href="/guides/" aria-current="page">Guides</a><a href="/privacy">Privacy</a><a href="/press">Press</a>
+      <a href="https://github.com/buengenio/innards" rel="noopener">GitHub</a>
+      <a class="btn primary" href="/download">Get Innards</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<article class="article">
+  <div class="page-head">
+    <div class="wrap narrow">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Innards</a></li><li><a href="/guides/">Guides</a></li><li aria-current="page">How to check SSD and NVMe health on Linux</li></ol></nav>
+      <span class="eyebrow">Guide</span>
+      <h1>How to check SSD and NVMe health on Linux</h1>
+      <p class="lead">Solid-state drives rarely fail loudly. They report their own wear, their own overheating and their own unclean shutdowns in a log you can read in two commands. This guide covers both commands and what each line means.</p>
+      <p class="article-meta">By <a href="/press#contact">Eugene Trotsan</a> · <time datetime="2026-09-21">21 September 2026</time> · 5 min read</p>
+    </div>
+  </div>
+  <div class="section tight">
+    <div class="wrap narrow prose">
+<h2>Two tools, one log</h2>
+<p>Every drive keeps a SMART log (Self-Monitoring, Analysis and Reporting Technology). On Linux there are two ways to read it:</p>
+<ul>
+<li><strong>smartmontools</strong> (<code>smartctl</code>) reads SATA and NVMe drives and is the tool most distributions document. Install it with <code>sudo apt install smartmontools</code>, <code>sudo dnf install smartmontools</code> or <code>sudo pacman -S smartmontools</code>.</li>
+<li><strong>nvme-cli</strong> (<code>nvme</code>) speaks the NVMe protocol directly and prints the health log with its original field names. Install with <code>sudo apt install nvme-cli</code> (or the equivalent).</li>
+</ul>
+<p>Both need root, because reading the log is a raw command to the device. That is also why Innards asks for your password only for this one probe.</p>
+<p>First, find your drives:</p>
+<pre><code>lsblk -d -o NAME,MODEL,SIZE,ROTA,TRAN
+# ROTA 1 = spinning disk, 0 = solid state. TRAN = sata, nvme, usb</code></pre>
+
+<h2>NVMe drives: <code>nvme smart-log</code></h2>
+<pre><code>sudo nvme smart-log /dev/nvme0</code></pre>
+<p>The output is one field per line. The ones worth reading, in the order you should read them:</p>
+<dl class="defs">
+<dt><code>critical_warning</code></dt>
+<dd>A bitmask; <code>0</code> is what you want. Any other value means the drive itself is raising a flag: spare blocks below threshold, temperature out of range, the media has become read-only, or a backup-power failure. Treat non-zero as "back up today".</dd>
+<dt><code>percentage_used</code></dt>
+<dd>The controller's own estimate of how much of the drive's rated endurance has been consumed, based on how much has been written and how the NAND is holding up. 0 is new; 100 means the rated write endurance has been reached. It can go past 100, which does not mean the drive is dead, only that it is now living beyond its warranty figure. Innards flags wear as worth fixing once it is high and says: <em>past 80%, plan a replacement</em>.</dd>
+<dt><code>available_spare</code> and <code>available_spare_threshold</code></dt>
+<dd>Spare blocks, as a percentage of the reserve the drive shipped with. When <code>available_spare</code> falls below the threshold (often 10%) the critical warning bit is set. A healthy drive sits at 100% for years; a falling number means blocks are being retired.</dd>
+<dt><code>media_errors</code></dt>
+<dd>Unrecovered data-integrity errors: reads that the controller could not correct. This should be zero. Any non-zero value is a replace-soon signal, and it usually gets worse.</dd>
+<dt><code>unsafe_shutdowns</code> and <code>power_cycles</code></dt>
+<dd>An unsafe shutdown is a power loss the drive was not warned about. A handful over a drive's life is normal; every held power button or pulled plug counts. What matters is the ratio. On the ThinkPad that started Innards, the drive had logged 69 unsafe shutdowns, a large share of its power cycles, which pointed at something real: the machine was hanging at reboot. On DRAM-less NVMe drives that use the host's memory as a buffer (HMB), a high count often means the controller is not coming out of its deepest power-saving state cleanly at shutdown. The kernel parameter <code>nvme_core.default_ps_max_latency_us=0</code> disables those deep states and is the standard workaround; it costs a little idle power.</dd>
+<dt><code>temperature</code>, <code>warning_temp_time</code>, <code>critical_comp_time</code></dt>
+<dd>Current composite temperature, plus two counters in minutes: time spent above the warning threshold and time spent above the critical one (the thresholds vary by drive; around 80°C is typical for the warning). The same ThinkPad's drive had logged 270 minutes above critical over its life because the M.2 bay had no thermal pad. Above critical, a drive throttles itself to survive, so this shows up as intermittent slowness long before it shows up as failure.</dd>
+<dt><code>data_units_written</code> and <code>power_on_hours</code></dt>
+<dd>Lifetime writes, in units of 1,000 × 512 bytes (multiply by 512,000 for bytes, or by roughly 0.5 for megabytes), and hours powered. Together with <code>percentage_used</code> these tell you how the drive has been treated: a low wear figure after years of hours is a drive with plenty of life left.</dd>
+</dl>
+<p>You can run the drive's built-in self-test as well; it checks the media without touching your data:</p>
+<pre><code>sudo nvme device-self-test /dev/nvme0 -s 1    # short test
+sudo nvme self-test-log /dev/nvme0             # results</code></pre>
+
+<h2>SATA SSDs (and hard drives): <code>smartctl</code></h2>
+<pre><code>sudo smartctl -H /dev/sda     # overall verdict: PASSED or FAILED
+sudo smartctl -a /dev/sda     # everything, including the attribute table</code></pre>
+<p><code>smartctl -a</code> also works on NVMe (<code>/dev/nvme0</code>) and prints the same health log as <code>nvme smart-log</code> with slightly friendlier labels. On SATA drives the interesting part is the attribute table, where the raw value column is what to read:</p>
+<ul>
+<li><strong>5 Reallocated_Sector_Ct, 197 Current_Pending_Sector, 198 Offline_Uncorrectable:</strong> bad blocks, blocks waiting to be checked, and blocks that failed. All three should be 0. Innards adds these together with NVMe media errors into one "bad sectors" finding, because they mean the same thing: back up, then replace.</li>
+<li><strong>199 UDMA_CRC_Error_Count:</strong> transfer errors on the cable, not on the drive. A rising count means a bad SATA cable or connector.</li>
+<li><strong>Wear:</strong> SATA SSDs report it under vendor-specific names, commonly 177 Wear_Leveling_Count, 231 SSD_Life_Left or 233 Media_Wearout_Indicator. Some count down from 100, some count up; <code>smartctl</code> usually normalises it so that the "VALUE" column falling towards the "THRESH" column is the warning.</li>
+<li><strong>194 Temperature_Celsius, 9 Power_On_Hours, 12 Power_Cycle_Count:</strong> what they say.</li>
+</ul>
+<p>A short self-test takes a couple of minutes and does not interrupt use:</p>
+<pre><code>sudo smartctl -t short /dev/sda
+sudo smartctl -l selftest /dev/sda   # a few minutes later</code></pre>
+
+<h2>Which numbers actually mean "replace"</h2>
+<p>SMART data invites over-reading. Keep it to four questions:</p>
+<ol>
+<li><strong>Does the drive say it is failing?</strong> <code>critical_warning</code> non-zero, or <code>smartctl -H</code> reporting FAILED. Back up today, replace this week.</li>
+<li><strong>Is it losing data?</strong> Media errors, reallocated, pending or uncorrectable sectors above zero. Back up, then replace; it gets worse.</li>
+<li><strong>Is it worn out?</strong> <code>percentage_used</code> past 80%, or a SATA life indicator approaching its threshold. Plan a replacement and keep backups current. It is not an emergency.</li>
+<li><strong>Is it being mistreated?</strong> Lots of unsafe shutdowns, or minutes logged above critical temperature. The drive is probably fine; the machine around it is not. Fix the reboot hang, add a thermal pad, clean the fan.</li>
+</ol>
+<p>Everything else on the list is context. A ten-year-old SSD at 30% wear with zero errors is healthier than a two-year-old one with three pending sectors.</p>
+
+<h2>Drives behind USB</h2>
+<p>SMART over a USB enclosure depends on the bridge chip. <code>smartctl</code> can often get through with <code>-d sat</code> (SATA drives) or <code>-d sntjmicron</code> / <code>-d sntrealtek</code> (NVMe drives, depending on the bridge). If nothing works, the drive may still be perfectly healthy; the enclosure simply does not pass the commands.</p>
+
+<aside class="tells" aria-labelledby="tells-h">
+  <p class="eyebrow" id="tells-h">What Innards would tell you</p>
+<div class="tells-item warning"><h3>KINGSTON SNV2S2000G sees many unclean shutdowns <span class="finding-cat">Storage</span></h3>
+<p><b>Plain:</b> This drive has been switched off without warning 69 times — roughly one in every 23.3% of power-ups. That's a sign of crashes, hangs, or power loss.</p>
+<p><b>Expert:</b> unsafe_shutdowns=69, power_cycles=276 (23.3%). On DRAM-less NVMe drives with HMB this often indicates the controller failing to exit deep APST states at shutdown; consider nvme_core.default_ps_max_latency_us=0.</p>
+<p class="tells-action"><strong>What to do:</strong> Check for reboot hangs; consider disabling NVMe deep power states.</p></div>
+<div class="tells-item warning"><h3>KINGSTON SNV2S2000G has overheated in the past <span class="finding-cat">Storage</span></h3>
+<p><b>Plain:</b> This drive has spent 270 minutes above its danger temperature over its life. It probably needs better cooling.</p>
+<p class="tells-action"><strong>What to do:</strong> Add a thermal pad, clean fans, or check for a blocked M.2 bay.</p></div>
+<div class="tells-item good"><h3>KINGSTON SNV2S2000G has plenty of life left <span class="finding-cat">Storage</span></h3>
+<p><b>Plain:</b> The main drive has used only 1% of its rated lifetime.</p></div>
+  <p class="tells-note">Wording is taken verbatim from the app's rule catalog (<code>i18n/en.json</code>); the drive is the ThinkPad that started the project, and as on the home page the power-cycle count is illustrative.</p>
+  <p class="tells-cta"><a class="btn primary" href="/download">Download Innards</a><span class="small faint">Free, open source, nothing leaves the machine.</span></p>
+</aside>
+
+<h2>Related guides</h2>
+<ul class="related"><li><a href="/guides/no-swap-what-happens-when-memory-runs-out">No swap: what happens when memory runs out</a><span class="small faint">Why a Linux machine with no swap freezes and then kills programs instead of slowing down, and how zram plus a swapfile fix it in ten minutes.</span></li><li><a href="/guides/is-my-old-laptop-still-good-enough">Is my old laptop still good enough?</a><span class="small faint">Judge an ageing laptop by what you actually do with it: which workloads it still handles, which parts are the ceiling, and what is worth fixing for free.</span></li><li><a href="/guides/upgrade-ram-or-buy-new-laptop">Should I upgrade RAM or buy a new laptop?</a><span class="small faint">How to find out whether your laptop&#x27;s memory is soldered, how much RAM each kind of work needs, and when soldered memory is the reason to change machine.</span></li></ul>
+    </div>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="/"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+      <p>Look inside your machine. A free, open-source hardware report for Linux, macOS and Windows that explains itself in plain language.</p>
+    </div>
+    <div>
+      <h2>Product</h2>
+      <ul>
+        <li><a href="/download">Download</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="https://github.com/buengenio/innards/releases/latest" rel="noopener">Releases</a></li>
+        <li><a href="https://github.com/buengenio/innards" rel="noopener">Source on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Resources</h2>
+      <ul>
+        <li><a href="/guides/">Guides</a></li>
+        <li><a href="https://github.com/buengenio/innards/tree/main/docs" rel="noopener">Documentation</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/docs/ARCHITECTURE.md" rel="noopener">Architecture</a></li>
+        <li><a href="https://github.com/buengenio/innards/issues" rel="noopener">Report an issue</a></li>
+        <li><a href="/press">Press kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Company</h2>
+      <ul>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/LICENSE" rel="noopener">MIT license</a></li>
+        <li><a href="mailto:eugene.trotsan@gmail.com">Contact</a></li>
+      </ul>
+    </div>
+    <div class="colophon">
+      <span>© 2026 Eugene Trotsan. Innards is MIT licensed.</span>
+      <span>This site sets no cookies and makes no third-party requests.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

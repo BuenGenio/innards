@@ -1,0 +1,17 @@
+[package]
+name = "innards-cli"
+description = "Command-line front end for innards-core: print the machine report or upgrade advice in the terminal, on PCs, phones and boards."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "innards"
+path = "src/main.rs"
+
+[dependencies]
+innards-core = { path = "../innards-core" }
+serde.workspace = true
+serde_json.workspace = true

@@ -1,0 +1,253 @@
+{
+  "lang": "es",
+  "level": "plain",
+  "summary": {
+    "machine": "LENOVO ThinkPad X1 Carbon 5th",
+    "cpu": "Intel Core i7-7500U · 2C/4T",
+    "memory": "16 GB LPDDR3",
+    "storage": "1.8 TiB NVMe",
+    "gpu": "HD Graphics 620",
+    "os": "Ubuntu 25.10",
+    "battery": "45%",
+    "health_score": 65
+  },
+  "verdict": "Un problema necesita atención pronto, además de 5 menor(es).",
+  "findings": [
+    {
+      "id": "storage.fs_nearly_full",
+      "severity": "critical",
+      "category": "Almacenamiento",
+      "title": "/mnt/sdc1 está al 99.5%",
+      "body": "Al disco en /mnt/sdc1 solo le quedan 3.8 GiB libres.",
+      "action": "Libera espacio o mueve datos a otro sitio.",
+      "evidence": []
+    },
+    {
+      "id": "storage.fs_nearly_full",
+      "severity": "warning",
+      "category": "Almacenamiento",
+      "title": "/media/buengenio/sda4 está al 90.5%",
+      "body": "Al disco en /media/buengenio/sda4 solo le quedan 62.9 GiB libres.",
+      "action": "Libera espacio o mueve datos a otro sitio.",
+      "evidence": []
+    },
+    {
+      "id": "cpu.old",
+      "severity": "warning",
+      "category": "Procesador",
+      "title": "El procesador tiene unos 9 años",
+      "body": "El Intel Core i7-7500U salió hacia 2017. Sigue funcionando, pero los chips nuevos hacen lo mismo en una fracción del tiempo y la energía.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "battery.worn",
+      "severity": "warning",
+      "category": "Batería",
+      "title": "La batería conserva el 45.3% de su capacidad original",
+      "body": "La batería se ha desgastado: ahora almacena 25.9 Wh de los 57.0 Wh originales, tras 1729 ciclos de carga. Espera poca autonomía.",
+      "action": "Cambia la batería si te importa la movilidad.",
+      "evidence": []
+    },
+    {
+      "id": "system.high_load",
+      "severity": "warning",
+      "category": "Sistema",
+      "title": "El sistema está muy cargado",
+      "body": "El equipo está trabajando más de lo que puede asumir ahora mismo.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "system.io_wait_high",
+      "severity": "warning",
+      "category": "Sistema",
+      "title": "Esperando a los discos el 34.7% del tiempo",
+      "body": "Gran parte del tiempo, el procesador solo espera a que un disco responda.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "memory.soldered",
+      "severity": "info",
+      "category": "Memoria",
+      "title": "La memoria no se puede ampliar",
+      "body": "Los 16 GB de memoria van soldados a la placa, así que no se pueden aumentar.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "storage.smart_unavailable",
+      "severity": "info",
+      "category": "Almacenamiento",
+      "title": "No se pudo leer la salud de los discos",
+      "body": "Innards no pudo comprobar la salud de tus discos. Ejecutarlo con permisos de administrador o instalar smartmontools lo permite.",
+      "action": "Instala smartmontools y vuelve a ejecutar con permisos elevados.",
+      "evidence": []
+    },
+    {
+      "id": "cpu.few_cores",
+      "severity": "info",
+      "category": "Procesador",
+      "title": "Solo 2 núcleos de CPU",
+      "body": "Este procesador tiene 2 núcleos. Las tareas pesadas que se reparten entre muchos núcleos irán lentas.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "gpu.integrated_only",
+      "severity": "info",
+      "category": "Gráficos",
+      "title": "Los gráficos van integrados en el procesador",
+      "body": "Los gráficos salen del propio procesador (HD Graphics 620). Bien para vídeo y escritorio; no para juegos actuales ni entrenar IA.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "memory.swap_ok",
+      "severity": "good",
+      "category": "Memoria",
+      "title": "Swap configurada",
+      "body": "Tu equipo tiene 12.0 GiB de memoria de reserva, así que no se bloqueará en cuanto se llene la memoria.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "storage.system_nvme",
+      "severity": "good",
+      "category": "Almacenamiento",
+      "title": "Disco de sistema NVMe rápido",
+      "body": "El disco principal (KINGSTON SNV2S2000G, 1.8 TiB) es del tipo moderno y rápido.",
+      "action": null,
+      "evidence": []
+    }
+  ],
+  "capabilities": [
+    {
+      "workload": "everyday",
+      "label": "Uso diario (web, ofimática, multimedia)",
+      "score": 96,
+      "grade": "great",
+      "grade_label": "Excelente",
+      "limits": []
+    },
+    {
+      "workload": "web_dev",
+      "label": "Desarrollo web y de apps",
+      "score": 76,
+      "grade": "good",
+      "grade_label": "Bien",
+      "limits": [
+        "pocos núcleos de CPU",
+        "memoria insuficiente"
+      ]
+    },
+    {
+      "workload": "containers",
+      "label": "Docker / contenedores",
+      "score": 54,
+      "grade": "ok",
+      "grade_label": "Aceptable",
+      "limits": [
+        "pocos núcleos de CPU",
+        "memoria insuficiente"
+      ]
+    },
+    {
+      "workload": "home_server",
+      "label": "Servidor doméstico / autoalojamiento",
+      "score": 75,
+      "grade": "good",
+      "grade_label": "Bien",
+      "limits": [
+        "memoria insuficiente"
+      ]
+    },
+    {
+      "workload": "portable_server",
+      "label": "Servidor doméstico/nube portátil (servicios autoalojados donde vayas)",
+      "score": 88,
+      "grade": "great",
+      "grade_label": "Excelente",
+      "limits": [
+        "pocos núcleos de CPU"
+      ]
+    },
+    {
+      "workload": "photo_editing",
+      "label": "Edición de fotos",
+      "score": 28,
+      "grade": "poor",
+      "grade_label": "Le cuesta",
+      "limits": [
+        "memoria insuficiente",
+        "sin gráfica dedicada"
+      ]
+    },
+    {
+      "workload": "heavy_compile",
+      "label": "Compilaciones grandes (C++, Rust, kernels)",
+      "score": 24,
+      "grade": "unsuitable",
+      "grade_label": "No apto",
+      "limits": [
+        "pocos núcleos de CPU",
+        "memoria insuficiente"
+      ]
+    },
+    {
+      "workload": "video_editing",
+      "label": "Edición de vídeo",
+      "score": 21,
+      "grade": "unsuitable",
+      "grade_label": "No apto",
+      "limits": [
+        "pocos núcleos de CPU",
+        "memoria insuficiente",
+        "sin gráfica dedicada"
+      ]
+    },
+    {
+      "workload": "local_llm",
+      "label": "Ejecutar modelos de IA en local",
+      "score": 28,
+      "grade": "poor",
+      "grade_label": "Le cuesta",
+      "limits": [
+        "sin GPU dedicada"
+      ]
+    },
+    {
+      "workload": "edge_ai",
+      "label": "IA en el dispositivo: clasificar, indexar, modelos pequeños",
+      "score": 81,
+      "grade": "good",
+      "grade_label": "Bien",
+      "limits": [
+        "pocos núcleos de CPU"
+      ]
+    },
+    {
+      "workload": "gaming",
+      "label": "Juegos actuales",
+      "score": 23,
+      "grade": "unsuitable",
+      "grade_label": "No apto",
+      "limits": [
+        "pocos núcleos de CPU",
+        "sin GPU dedicada"
+      ]
+    },
+    {
+      "workload": "ml_training",
+      "label": "Entrenamiento de ML / cómputo GPU",
+      "score": 4,
+      "grade": "unsuitable",
+      "grade_label": "No apto",
+      "limits": [
+        "sin GPU dedicada"
+      ]
+    }
+  ],
+  "notes": []
+}

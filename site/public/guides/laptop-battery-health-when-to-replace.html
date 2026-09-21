@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Laptop battery health: when to replace it — Innards</title>
+  <meta name="description" content="How battery health is calculated, how to read it on Linux, Windows and macOS, what cycle counts mean, and the point at which a replacement is worth it.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://innards.app/guides/laptop-battery-health-when-to-replace">
+  <meta name="author" content="Eugene Trotsan">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+  <link rel="stylesheet" href="../style.css">
+  <script src="../site.js" defer></script>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Innards">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Laptop battery health: when to replace it — Innards">
+  <meta property="og:description" content="How battery health is calculated, how to read it on Linux, Windows and macOS, what cycle counts mean, and the point at which a replacement is worth it.">
+  <meta property="og:url" content="https://innards.app/guides/laptop-battery-health-when-to-replace">
+  <meta property="og:image" content="https://innards.app/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+  <meta property="article:published_time" content="2026-09-21">
+  <meta property="article:modified_time" content="2026-09-21">
+  <meta property="article:author" content="https://github.com/buengenio">
+  <meta property="article:section" content="Guides">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Laptop battery health: when to replace it — Innards">
+  <meta name="twitter:description" content="How battery health is calculated, how to read it on Linux, Windows and macOS, what cycle counts mean, and the point at which a replacement is worth it.">
+  <meta name="twitter:image" content="https://innards.app/og.png">
+  <meta name="twitter:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Person",
+   "@id": "https://innards.app/#eugene",
+   "name": "Eugene Trotsan",
+   "url": "https://github.com/buengenio",
+   "email": "mailto:eugene.trotsan@gmail.com",
+   "sameAs": [
+    "https://github.com/buengenio"
+   ]
+  },
+  {
+   "@type": "Article",
+   "@id": "https://innards.app/guides/laptop-battery-health-when-to-replace#article",
+   "headline": "Laptop battery health percentage: what it means and when to replace",
+   "description": "How battery health is calculated, how to read it on Linux, Windows and macOS, what cycle counts mean, and the point at which a replacement is worth it.",
+   "url": "https://innards.app/guides/laptop-battery-health-when-to-replace",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://innards.app/guides/laptop-battery-health-when-to-replace"
+   },
+   "datePublished": "2026-09-21",
+   "dateModified": "2026-09-21",
+   "author": {
+    "@id": "https://innards.app/#eugene"
+   },
+   "publisher": {
+    "@id": "https://innards.app/#eugene"
+   },
+   "image": "https://innards.app/og.png",
+   "inLanguage": "en",
+   "wordCount": 872,
+   "isPartOf": {
+    "@id": "https://innards.app/#website"
+   },
+   "about": {
+    "@id": "https://innards.app/#app"
+   },
+   "articleSection": "Guides"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Innards",
+     "item": "https://innards.app/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Guides",
+     "item": "https://innards.app/guides/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Laptop battery health: when to replace it",
+     "item": "https://innards.app/guides/laptop-battery-health-when-to-replace"
+    }
+   ]
+  }
+ ]
+}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Innards home"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/download">Download</a><a href="/pricing">Pricing</a><a href="/guides/" aria-current="page">Guides</a><a href="/privacy">Privacy</a><a href="/press">Press</a>
+      <a href="https://github.com/buengenio/innards" rel="noopener">GitHub</a>
+      <a class="btn primary" href="/download">Get Innards</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<article class="article">
+  <div class="page-head">
+    <div class="wrap narrow">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Innards</a></li><li><a href="/guides/">Guides</a></li><li aria-current="page">Laptop battery health: when to replace it</li></ol></nav>
+      <span class="eyebrow">Guide</span>
+      <h1>Laptop battery health percentage: what it means and when to replace</h1>
+      <p class="lead">Battery health is the one hardware number almost everyone understands, and one of the few that a laptop reports honestly. Here is where it comes from, how to read it on any operating system, and how to decide when 45% is a problem and when it isn't.</p>
+      <p class="article-meta">By <a href="/press#contact">Eugene Trotsan</a> · <time datetime="2026-09-21">21 September 2026</time> · 4 min read</p>
+    </div>
+  </div>
+  <div class="section tight">
+    <div class="wrap narrow prose">
+<h2>What the percentage is</h2>
+<p>Every battery reports two capacities. The <strong>design capacity</strong> is what it could hold when new, printed on the label in watt-hours. The <strong>full charge capacity</strong> is what it can hold now, re-measured by the battery's own gauge each time it is charged to 100%. Health is simply the ratio:</p>
+<pre><code>health = full charge capacity ÷ design capacity
+       = 25.8 Wh ÷ 57 Wh ≈ 45%</code></pre>
+<p>A battery at 45% health is not "45% charged". It is a battery that, when full, holds 45% of the energy it was built to hold. Runtime scales with it: a laptop that ran for eight hours new runs for about three and a half.</p>
+<p>The second number worth knowing is the <strong>cycle count</strong>. One cycle is 100% of capacity discharged, cumulatively; going from 100% to 50% twice is one cycle, not two. Lithium-ion cells are typically specified to keep about 80% of their capacity for somewhere between 300 and 1,000 cycles depending on the maker and the chemistry, and to decline faster after that.</p>
+
+<h2>Reading it on each system</h2>
+<h3>Linux</h3>
+<pre><code>cat /sys/class/power_supply/BAT0/energy_full_design   # µWh when new
+cat /sys/class/power_supply/BAT0/energy_full          # µWh now
+cat /sys/class/power_supply/BAT0/cycle_count          # if the firmware reports it
+
+# or, friendlier:
+upower -i $(upower -e | grep BAT)</code></pre>
+<p>Some batteries report <code>charge_full</code> and <code>charge_full_design</code> in microamp-hours instead of energy; the ratio works the same way. <code>upower</code> prints <code>energy-full</code>, <code>energy-full-design</code> and a <code>capacity</code> percentage that is exactly the health figure.</p>
+<h3>Windows</h3>
+<pre><code>powercfg /batteryreport</code></pre>
+<p>This writes <code>battery-report.html</code> to the current folder. The "Installed batteries" table shows DESIGN CAPACITY, FULL CHARGE CAPACITY and CYCLE COUNT; the "Battery capacity history" table shows how full charge capacity has drifted over months, which is the most useful view of all.</p>
+<h3>macOS</h3>
+<p>System Settings → Battery → Battery Health shows Maximum Capacity as a percentage and a Condition of Normal or Service Recommended. For the cycle count, open System Information → Power (or run <code>system_profiler SPPowerDataType</code>).</p>
+
+<h2>When to replace</h2>
+<p>There is no health percentage at which a battery becomes unsafe or the laptop stops working; a worn battery just holds less. So the decision is about how you use the machine:</p>
+<ul>
+<li><strong>Below about 60%, if you use it unplugged.</strong> This is the line Innards draws in its report. Under it, runtime is less than two thirds of the original and falling; a replacement is the cheapest way to get hours back.</li>
+<li><strong>Any health, if it is always plugged in.</strong> A laptop that lives on a desk or works as a home server does not need runtime. A 45% battery still rides through a power blip, which is a useful thing for a server to have.</li>
+<li><strong>Immediately, if it is swelling.</strong> A trackpad that has lifted, a case that no longer sits flat, or a bottom cover bulging out is a swollen cell. Stop using the battery, do not puncture it, and have it replaced; this is the one battery symptom that is a safety matter rather than a convenience one.</li>
+<li><strong>Soon, if it shuts down at 20–30%.</strong> An old battery's gauge and its cells disagree; the laptop believes it has a quarter left and the cell voltage collapses. Sometimes a full discharge-and-charge recalibrates the gauge for a while; it does not restore the cells.</li>
+</ul>
+<p>The cost is usually modest. For the 2017 ThinkPad X1 Carbon in Innards' own report, the upgrade advisor estimates a battery at $40–$120, replaces it under "Service" rather than "Upgrade", and adds that it is "usually a 10-minute job with a screwdriver": that machine has a bottom cover held by captive screws and an internal battery on a single connector. Check a service manual or a teardown video for your model first; the same job on a glued-in ultrabook is a different afternoon.</p>
+
+<h2>Making the next one last</h2>
+<p>Battery wear is driven by heat, by time spent at 100%, and by full cycles. You cannot change the chemistry, but you can change those three:</p>
+<ul>
+<li><strong>Cap the charge if the machine mostly lives plugged in.</strong> ThinkPads, many Dells and ASUS laptops and most recent designs let you stop charging at 80% (on Linux, <code>/sys/class/power_supply/BAT0/charge_control_end_threshold</code> on machines whose firmware supports it, or via TLP or the GNOME power settings; Windows exposes the same setting through the vendor's utility; macOS does it automatically with Optimized Battery Charging). Innards suggests this whenever a laptop is being used as an always-on server.</li>
+<li><strong>Keep it cool.</strong> A laptop on a duvet, or one whose fan is clogged, cooks its battery along with its processor.</li>
+<li><strong>Do not chase small top-ups.</strong> Plugging in at 80% to reach 100% before leaving the house is fine; keeping it pinned at 100% for a year is what ages it.</li>
+</ul>
+<p>None of this makes a battery last forever. A well-treated pack in a laptop used daily reaches the 80% line somewhere around its third or fourth year; the one in the ThinkPad above reached 45% after 1,729 cycles, which is a battery that did its job.</p>
+
+<aside class="tells" aria-labelledby="tells-h">
+  <p class="eyebrow" id="tells-h">What Innards would tell you</p>
+<div class="tells-item warning"><h3>Battery holds 45.3% of its original capacity <span class="finding-cat">Battery</span></h3>
+<p><b>Informed:</b> 45.3% health, 1729 cycles. Below ~60% a replacement is worth it if you use it unplugged.</p>
+<p class="tells-action"><strong>What to do:</strong> Replace the battery if portability matters.</p></div>
+<div class="tells-item accent"><h3>Replace the battery <span class="finding-cat">Upgrade advisor · Service</span></h3>
+<p>Health is 45%. A replacement for the ThinkPad X1 Carbon 5th is usually a 10-minute job with a screwdriver. <em>Why: you said you use it unplugged; this is the cheapest way to get hours back.</em></p></div>
+  <p class="tells-note">Wording is taken verbatim from the app's rule catalog (<code>i18n/en.json</code>), filled in with values from the report of a real 2017 ThinkPad X1 Carbon.</p>
+  <p class="tells-cta"><a class="btn primary" href="/download">Download Innards</a><span class="small faint">Free, open source, nothing leaves the machine.</span></p>
+</aside>
+
+<h2>Related guides</h2>
+<ul class="related"><li><a href="/guides/is-my-old-laptop-still-good-enough">Is my old laptop still good enough?</a><span class="small faint">Judge an ageing laptop by what you actually do with it: which workloads it still handles, which parts are the ceiling, and what is worth fixing for free.</span></li><li><a href="/guides/old-android-phone-home-server">Can you use an old Android phone as a home server?</a><span class="small faint">What a rooted OnePlus 6T or other Snapdragon 845 phone can honestly do as a pocket server, why postmarketOS beats rooted Android, and the real limits.</span></li><li><a href="/guides/upgrade-ram-or-buy-new-laptop">Should I upgrade RAM or buy a new laptop?</a><span class="small faint">How to find out whether your laptop&#x27;s memory is soldered, how much RAM each kind of work needs, and when soldered memory is the reason to change machine.</span></li></ul>
+    </div>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="/"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+      <p>Look inside your machine. A free, open-source hardware report for Linux, macOS and Windows that explains itself in plain language.</p>
+    </div>
+    <div>
+      <h2>Product</h2>
+      <ul>
+        <li><a href="/download">Download</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="https://github.com/buengenio/innards/releases/latest" rel="noopener">Releases</a></li>
+        <li><a href="https://github.com/buengenio/innards" rel="noopener">Source on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Resources</h2>
+      <ul>
+        <li><a href="/guides/">Guides</a></li>
+        <li><a href="https://github.com/buengenio/innards/tree/main/docs" rel="noopener">Documentation</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/docs/ARCHITECTURE.md" rel="noopener">Architecture</a></li>
+        <li><a href="https://github.com/buengenio/innards/issues" rel="noopener">Report an issue</a></li>
+        <li><a href="/press">Press kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Company</h2>
+      <ul>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/LICENSE" rel="noopener">MIT license</a></li>
+        <li><a href="mailto:eugene.trotsan@gmail.com">Contact</a></li>
+      </ul>
+    </div>
+    <div class="colophon">
+      <span>© 2026 Eugene Trotsan. Innards is MIT licensed.</span>
+      <span>This site sets no cookies and makes no third-party requests.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

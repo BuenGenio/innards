@@ -1,0 +1,15 @@
+[package]
+name = "innards-license"
+description = "Generate the signing keypair and issue Innards license keys. Never ship this or the private key."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+rand = "0.8"
+base64 = "0.22"
+serde_json = "1"
+chrono = "0.4"
+dirs = "6"

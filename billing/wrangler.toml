@@ -1,0 +1,29 @@
+name = "innards-billing"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+
+# Secrets (set with `wrangler secret put <NAME>`; never commit):
+#   STRIPE_SECRET_KEY        sk_live_… (or sk_test_… for staging)
+#   STRIPE_WEBHOOK_SECRET    whsec_… from the webhook endpoint you create in Stripe
+#   LICENSE_SIGNING_KEY      base64url 32-byte Ed25519 seed — same one innards-license uses
+#                            (contents of ~/.config/innards/signing.key)
+
+[vars]
+SITE_URL = "https://innards.app"
+# Stripe price ids, created by scripts/setup-stripe.sh (lookup_keys innards_supporter / innards_pro / innards_team)
+PRICE_SUPPORTER = ""
+PRICE_PRO = ""
+PRICE_TEAM = ""
+SUPPORTER_MIN_CENTS = "500"
+SUPPORTER_PRESET_CENTS = "900"
+TEAM_MIN_MACHINES = "5"
+# Days of grace after a subscription period ends before the key stops verifying.
+GRACE_DAYS = "3"
+
+[[kv_namespaces]]
+binding = "LICENSES"
+id = "71d90902f3e14ff6b72f5a27fd89f59e"
+preview_id = "71d90902f3e14ff6b72f5a27fd89f59e"
+
+[observability]
+enabled = true

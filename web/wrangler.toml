@@ -1,0 +1,30 @@
+# Static deployment of the innards site to Cloudflare Workers (assets only, no server code).
+# Build:  pnpm build          (SvelteKit adapter-static → ./build)
+# Deploy: pnpm deploy         (wrangler deploy — needs `wrangler login`)
+name = "innards-web"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+# Custom domains — top-level key (must come BEFORE any [table] header).
+# The zone must live in the same Cloudflare account; wrangler creates the DNS records + certs.
+routes = [
+  { pattern = "innards.app", custom_domain = true },
+  { pattern = "www.innards.app", custom_domain = true },
+]
+
+[assets]
+directory = "build"
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"
+
+[observability]
+enabled = true
+
+# `pnpm wrangler deploy --env preview` → innards-web-preview.<account>.workers.dev, no custom domain.
+[env.preview]
+workers_dev = true
+routes = []
+[env.preview.assets]
+directory = "build"
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"

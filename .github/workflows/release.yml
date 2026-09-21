@@ -1,0 +1,92 @@
+name: Release
+
+# Tag a commit `vX.Y.Z` and push it. Every platform builds its installers with
+# tauri-action and uploads them to one draft GitHub release named after the
+# tag; publish the draft by hand once all four jobs are green.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux x86_64 (deb, AppImage, rpm)
+            platform: ubuntu-22.04 # oldest glibc we want the binaries to run on
+            args: ""
+          - name: macOS Apple silicon (dmg)
+            platform: macos-latest
+            target: aarch64-apple-darwin
+            args: "--target aarch64-apple-darwin"
+          - name: macOS Intel (dmg)
+            platform: macos-latest
+            target: x86_64-apple-darwin
+            args: "--target x86_64-apple-darwin"
+          - name: Windows x86_64 (msi, exe)
+            platform: windows-latest
+            args: ""
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Tauri apt dependencies (Linux only)
+        if: startsWith(matrix.platform, 'ubuntu')
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential curl wget file libssl-dev \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            libxdo-dev
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          # macOS runners are arm64; the Intel job cross-compiles, so make sure
+          # the requested target's std is installed.
+          targets: ${{ matrix.target || '' }}
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: release-${{ matrix.target || matrix.platform }}
+          workspaces: ". -> target"
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      # Runs `pnpm tauri build` (which runs `pnpm build` first via
+      # tauri.conf.json beforeBuildCommand), then creates/updates the draft
+      # release for this tag and uploads every bundle it produced.
+      - uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "Innards ${{ github.ref_name }}"
+          releaseBody: |
+            Installers for Linux (deb, AppImage, rpm), macOS (dmg, Apple silicon and Intel) and Windows (msi, exe).
+            See the assets below. Innards is free and open source; nothing leaves your machine.
+          releaseDraft: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          args: ${{ matrix.args }}

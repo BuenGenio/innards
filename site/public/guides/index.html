@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Guides: is your computer still good enough? — Innards</title>
+  <meta name="description" content="Plain-language guides to judging, fixing and upgrading the computer you already have: drive health, swap, battery, RAM, and old phones as servers.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://innards.app/guides/">
+  <meta name="author" content="Eugene Trotsan">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+  <link rel="stylesheet" href="../style.css">
+  <script src="../site.js" defer></script>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Innards">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Guides: is your computer still good enough? — Innards">
+  <meta property="og:description" content="Plain-language guides to judging, fixing and upgrading the computer you already have: drive health, swap, battery, RAM, and old phones as servers.">
+  <meta property="og:url" content="https://innards.app/guides/">
+  <meta property="og:image" content="https://innards.app/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Guides: is your computer still good enough? — Innards">
+  <meta name="twitter:description" content="Plain-language guides to judging, fixing and upgrading the computer you already have: drive health, swap, battery, RAM, and old phones as servers.">
+  <meta name="twitter:image" content="https://innards.app/og.png">
+  <meta name="twitter:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Person",
+   "@id": "https://innards.app/#eugene",
+   "name": "Eugene Trotsan",
+   "url": "https://github.com/buengenio",
+   "email": "mailto:eugene.trotsan@gmail.com",
+   "sameAs": [
+    "https://github.com/buengenio"
+   ]
+  },
+  {
+   "@type": "CollectionPage",
+   "@id": "https://innards.app/guides/",
+   "url": "https://innards.app/guides/",
+   "name": "Guides",
+   "description": "Plain-language guides to judging, fixing and upgrading the computer you already have.",
+   "isPartOf": {
+    "@id": "https://innards.app/#website"
+   },
+   "inLanguage": "en",
+   "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+     {
+      "@type": "ListItem",
+      "position": 1,
+      "url": "https://innards.app/guides/is-my-old-laptop-still-good-enough",
+      "name": "Is my old laptop still good enough?"
+     },
+     {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "https://innards.app/guides/check-ssd-nvme-health-linux",
+      "name": "How to check SSD and NVMe health on Linux"
+     },
+     {
+      "@type": "ListItem",
+      "position": 3,
+      "url": "https://innards.app/guides/no-swap-what-happens-when-memory-runs-out",
+      "name": "Your laptop has no swap. Here is what happens when memory runs out."
+     },
+     {
+      "@type": "ListItem",
+      "position": 4,
+      "url": "https://innards.app/guides/laptop-battery-health-when-to-replace",
+      "name": "Laptop battery health percentage: what it means and when to replace"
+     },
+     {
+      "@type": "ListItem",
+      "position": 5,
+      "url": "https://innards.app/guides/upgrade-ram-or-buy-new-laptop",
+      "name": "Should I upgrade the RAM or buy a new laptop?"
+     },
+     {
+      "@type": "ListItem",
+      "position": 6,
+      "url": "https://innards.app/guides/old-android-phone-home-server",
+      "name": "Can you use an old Android phone as a home server?"
+     }
+    ]
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Innards",
+     "item": "https://innards.app/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Guides",
+     "item": "https://innards.app/guides/"
+    }
+   ]
+  }
+ ]
+}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Innards home"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/download">Download</a><a href="/pricing">Pricing</a><a href="/guides/" aria-current="page">Guides</a><a href="/privacy">Privacy</a><a href="/press">Press</a>
+      <a href="https://github.com/buengenio/innards" rel="noopener">GitHub</a>
+      <a class="btn primary" href="/download">Get Innards</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-head">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Innards</a></li><li aria-current="page">Guides</li></ol></nav>
+    <span class="eyebrow">Guides</span>
+    <h1>Is the computer you have still good enough?</h1>
+    <p class="lead">Practical guides to judging, fixing and upgrading the machine you already own. Each one ends with what Innards' own rules would say about it, quoted from the app's catalog, and none of them will tell you to buy something that won't help.</p>
+  </div>
+</section>
+<section class="section tight">
+  <div class="wrap">
+    <ul class="guide-list"><li class="card guide-card"><h2><a href="/guides/is-my-old-laptop-still-good-enough">Is my old laptop still good enough?</a></h2><p>Judge an ageing laptop by what you actually do with it: which workloads it still handles, which parts are the ceiling, and what is worth fixing for free.</p><p class="small faint">5 min read</p></li><li class="card guide-card"><h2><a href="/guides/check-ssd-nvme-health-linux">How to check SSD and NVMe health on Linux</a></h2><p>smartctl and nvme-cli step by step: percentage_used, available spare, unsafe shutdowns, media errors, temperature history, and which numbers mean replace.</p><p class="small faint">5 min read</p></li><li class="card guide-card"><h2><a href="/guides/no-swap-what-happens-when-memory-runs-out">Your laptop has no swap. Here is what happens when memory runs out.</a></h2><p>Why a Linux machine with no swap freezes and then kills programs instead of slowing down, and how zram plus a swapfile fix it in ten minutes.</p><p class="small faint">5 min read</p></li><li class="card guide-card"><h2><a href="/guides/laptop-battery-health-when-to-replace">Laptop battery health percentage: what it means and when to replace</a></h2><p>How battery health is calculated, how to read it on Linux, Windows and macOS, what cycle counts mean, and the point at which a replacement is worth it.</p><p class="small faint">4 min read</p></li><li class="card guide-card"><h2><a href="/guides/upgrade-ram-or-buy-new-laptop">Should I upgrade the RAM or buy a new laptop?</a></h2><p>How to find out whether your laptop&#x27;s memory is soldered, how much RAM each kind of work needs, and when soldered memory is the reason to change machine.</p><p class="small faint">5 min read</p></li><li class="card guide-card"><h2><a href="/guides/old-android-phone-home-server">Can you use an old Android phone as a home server?</a></h2><p>What a rooted OnePlus 6T or other Snapdragon 845 phone can honestly do as a pocket server, why postmarketOS beats rooted Android, and the real limits.</p><p class="small faint">5 min read</p></li></ul>
+    <p class="small faint" style="margin-top:28px">Written by Eugene Trotsan, the developer of Innards. No affiliate links, no sponsored recommendations. Corrections welcome on <a href="https://github.com/buengenio/innards/issues" rel="noopener">GitHub</a>.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <h2>Let the machine answer for itself.</h2>
+        <p>Innards runs the checks in these guides in about a second and explains the result at the level of detail you choose. Free, open source, nothing leaves the machine.</p>
+      </div>
+      <div class="btn-row">
+        <a class="btn primary lg" href="/download">Download Innards</a>
+        <a class="btn ghost lg" href="/">How it works</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="/"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+      <p>Look inside your machine. A free, open-source hardware report for Linux, macOS and Windows that explains itself in plain language.</p>
+    </div>
+    <div>
+      <h2>Product</h2>
+      <ul>
+        <li><a href="/download">Download</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="https://github.com/buengenio/innards/releases/latest" rel="noopener">Releases</a></li>
+        <li><a href="https://github.com/buengenio/innards" rel="noopener">Source on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Resources</h2>
+      <ul>
+        <li><a href="/guides/">Guides</a></li>
+        <li><a href="https://github.com/buengenio/innards/tree/main/docs" rel="noopener">Documentation</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/docs/ARCHITECTURE.md" rel="noopener">Architecture</a></li>
+        <li><a href="https://github.com/buengenio/innards/issues" rel="noopener">Report an issue</a></li>
+        <li><a href="/press">Press kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Company</h2>
+      <ul>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/LICENSE" rel="noopener">MIT license</a></li>
+        <li><a href="mailto:eugene.trotsan@gmail.com">Contact</a></li>
+      </ul>
+    </div>
+    <div class="colophon">
+      <span>© 2026 Eugene Trotsan. Innards is MIT licensed.</span>
+      <span>This site sets no cookies and makes no third-party requests.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

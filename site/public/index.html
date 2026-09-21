@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Hardware health check, explained in plain language — Innards</title>
+  <meta name="description" content="Free, open-source app that inspects CPU, memory, drives, battery and thermals, explains them at three reading levels, and scores what your PC is good for.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://innards.app/">
+  <meta name="author" content="Eugene Trotsan">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
+  <link rel="preload" as="image" href="screenshots/report-light-en.png" media="(prefers-color-scheme: light)">
+  <link rel="preload" as="image" href="screenshots/report-expert-dark-en.png" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Innards">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Hardware health check, explained in plain language — Innards">
+  <meta property="og:description" content="Free, open-source app that inspects CPU, memory, drives, battery and thermals, explains them at three reading levels, and scores what your PC is good for.">
+  <meta property="og:url" content="https://innards.app/">
+  <meta property="og:image" content="https://innards.app/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hardware health check, explained in plain language — Innards">
+  <meta name="twitter:description" content="Free, open-source app that inspects CPU, memory, drives, battery and thermals, explains them at three reading levels, and scores what your PC is good for.">
+  <meta name="twitter:image" content="https://innards.app/og.png">
+  <meta name="twitter:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "@id": "https://innards.app/#website",
+   "url": "https://innards.app/",
+   "name": "Innards",
+   "description": "Innards inspects your computer and explains what it found in plain language, at three reading levels, then scores what the machine is still good for.",
+   "inLanguage": "en",
+   "publisher": {
+    "@id": "https://innards.app/#eugene"
+   }
+  },
+  {
+   "@type": "Person",
+   "@id": "https://innards.app/#eugene",
+   "name": "Eugene Trotsan",
+   "url": "https://github.com/buengenio",
+   "email": "mailto:eugene.trotsan@gmail.com",
+   "sameAs": [
+    "https://github.com/buengenio"
+   ]
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://innards.app/#app",
+   "name": "Innards",
+   "url": "https://innards.app/",
+   "description": "A free, open-source desktop app that inspects your computer (CPU, memory, drives including SMART health, battery, thermals) and explains what it finds in plain language at three reading levels, in English or Spanish, then scores what the machine is still good for across twelve workloads.",
+   "applicationCategory": "UtilitiesApplication",
+   "applicationSubCategory": "Hardware diagnostics",
+   "operatingSystem": "Linux, macOS, Windows",
+   "softwareRequirements": "Linux (deb, AppImage, rpm), macOS 11 or later, Windows 10 or later",
+   "isAccessibleForFree": true,
+   "license": "https://github.com/buengenio/innards/blob/main/LICENSE",
+   "downloadUrl": "https://github.com/buengenio/innards/releases/latest",
+   "installUrl": "https://innards.app/download",
+   "softwareHelp": {
+    "@type": "CreativeWork",
+    "url": "https://github.com/buengenio/innards/tree/main/docs"
+   },
+   "image": "https://innards.app/og.png",
+   "screenshot": [
+    {
+     "@type": "ImageObject",
+     "url": "https://innards.app/screenshots/report-light-en.png",
+     "width": 1180,
+     "height": 1500,
+     "caption": "Report view at the informed level, light theme"
+    },
+    {
+     "@type": "ImageObject",
+     "url": "https://innards.app/screenshots/advisor-visual-light-en.png",
+     "width": 1180,
+     "height": 1250,
+     "caption": "Upgrade advisor: recommendations plotted by cost and gain against a budget"
+    }
+   ],
+   "inLanguage": [
+    "en",
+    "es"
+   ],
+   "featureList": [
+    "Findings at three reading levels: plain, informed, expert",
+    "Capability scores across twelve workloads with the limiting part named",
+    "SMART drive health, battery health, thermals, memory and swap checks",
+    "Upgrade advisor with ranked, costed recommendations (Supporter)",
+    "Where-to-buy links, new, refurbished or used, by region (Pro)",
+    "Fleet dashboard on Threadwise (Team, Enterprise)",
+    "No account, no telemetry, no network calls in the free tier",
+    "Markdown export"
+   ],
+   "author": {
+    "@id": "https://innards.app/#eugene"
+   },
+   "offers": [
+    {
+     "@type": "Offer",
+     "name": "Free",
+     "price": "0",
+     "priceCurrency": "USD",
+     "url": "https://innards.app/pricing#tier-free",
+     "description": "Full report with evidence, three reading levels, every language, Markdown export. No account."
+    },
+    {
+     "@type": "Offer",
+     "name": "Supporter",
+     "price": "9",
+     "priceCurrency": "USD",
+     "url": "https://innards.app/pricing#tier-supporter",
+     "description": "One-time, pay what you want from $5. Upgrade advisor, narrated summaries with your own Claude API key, machine history."
+    },
+    {
+     "@type": "Offer",
+     "name": "Pro",
+     "price": "29",
+     "priceCurrency": "USD",
+     "url": "https://innards.app/pricing#tier-pro",
+     "description": "Per year. Where to buy each recommendation (new, refurbished, used, by region) and comparing another machine's exported report.",
+     "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "29",
+      "priceCurrency": "USD",
+      "billingDuration": "P1Y"
+     }
+    },
+    {
+     "@type": "Offer",
+     "name": "Team",
+     "price": "4",
+     "priceCurrency": "USD",
+     "url": "https://innards.app/pricing#tier-team",
+     "description": "Per machine per month (or $39 per machine per year), minimum 5 machines. Fleet dashboard on Threadwise.",
+     "eligibleQuantity": {
+      "@type": "QuantitativeValue",
+      "minValue": 5,
+      "unitText": "machines"
+     },
+     "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "4",
+      "priceCurrency": "USD",
+      "billingDuration": "P1M",
+      "unitText": "machine"
+     }
+    },
+    {
+     "@type": "Offer",
+     "name": "Enterprise",
+     "price": "2500",
+     "priceCurrency": "USD",
+     "url": "https://innards.app/pricing#tier-enterprise",
+     "description": "From $2,500 per year. Self-hosted backend, SSO/SAML, RBAC, audit log, data residency, custom rules, SLA.",
+     "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "2500",
+      "priceCurrency": "USD",
+      "billingDuration": "P1Y",
+      "minPrice": "2500"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://innards.app/#webpage",
+   "url": "https://innards.app/",
+   "name": "Innards — Look inside your machine.",
+   "isPartOf": {
+    "@id": "https://innards.app/#website"
+   },
+   "about": {
+    "@id": "https://innards.app/#app"
+   },
+   "primaryImageOfPage": "https://innards.app/og.png",
+   "inLanguage": "en"
+  }
+ ]
+}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Innards home"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/download">Download</a><a href="/pricing">Pricing</a><a href="/guides/">Guides</a><a href="/privacy">Privacy</a><a href="/press">Press</a>
+      <a href="https://github.com/buengenio/innards" rel="noopener">GitHub</a>
+      <a class="btn primary" href="/download">Get Innards</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Free · open source · Linux, macOS, Windows</span>
+      <h1>Look inside your machine.</h1>
+      <p class="lead">Innards inspects the computer it runs on and explains what it found in plain language, at the level of detail you choose, in your language. Then it tells you what the machine is still good for, and what, if anything, is worth buying.</p>
+      <div class="btn-row">
+        <a class="btn primary lg" href="/download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download</a>
+        <a class="btn lg" href="https://github.com/buengenio/innards" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>Source on GitHub</a>
+      </div>
+      <div class="hero-meta">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>No account</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>No telemetry</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>No network calls in the free tier</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>MIT licensed</span>
+      </div>
+    </div>
+    <figure class="shot crop">
+      <picture>
+        <source srcset="screenshots/report-expert-dark-en.png" media="(prefers-color-scheme: dark)">
+        <img src="screenshots/report-light-en.png" width="1180" height="1500" alt="The Innards report for a 2017 ThinkPad X1 Carbon: a health score of 36 out of 100, findings sorted by severity such as a drive that is 99.5% full and a battery at 45% of its original capacity, and a panel grading what the machine is good for." fetchpriority="high">
+      </picture>
+    </figure>
+  </div>
+</section>
+
+<section class="section" id="levels">
+  <div class="wrap"><div class="demo" data-level-demo>
+  <div>
+    <span class="eyebrow">Three levels</span>
+    <h2>The same finding, phrased three ways.</h2>
+    <p class="lead">Not a "simple mode" that hides things. Every finding in the report is written for three readers, and the raw evidence is one click away at any of them.</p>
+    <ul class="levels">
+      <li><b>Plain</b><span>for someone who doesn't want jargon</span></li>
+      <li><b>Informed</b><span>for a comfortable computer user</span></li>
+      <li><b>Expert</b><span>for people who want <code>unsafe_shutdowns=69</code> and the kernel parameter to fix it</span></li>
+    </ul>
+  </div>
+  <div>
+    <div class="demo-controls">
+      <span class="label" id="lvl-label">Level</span>
+      <div class="seg" role="tablist" aria-labelledby="lvl-label">
+        <button type="button" role="tab" id="tab-plain" data-level="plain" aria-selected="false" tabindex="-1">Plain</button>
+        <button type="button" role="tab" id="tab-informed" data-level="informed" aria-selected="true">Informed</button>
+        <button type="button" role="tab" id="tab-expert" data-level="expert" aria-selected="false" tabindex="-1">Expert</button>
+      </div>
+    </div>
+    <div class="demo-controls">
+      <span class="label">Finding</span>
+      <div class="seg" role="group" aria-label="Choose a finding">
+        <button type="button" data-pick-finding="unsafe" aria-pressed="true">Unclean shutdowns</button>
+        <button type="button" data-pick-finding="swap" aria-pressed="false">No swap</button>
+      </div>
+    </div>
+
+    <article class="finding" data-finding="unsafe" aria-live="polite">
+      <div class="finding-head"><h3>KINGSTON SNV2S2000G sees many unclean shutdowns</h3><span class="finding-cat">Storage</span></div>
+      <p class="finding-body" data-level="plain" data-label="Plain">This drive has been switched off without warning 69 times — roughly one in every 23.3% of power-ups. That's a sign of crashes, hangs, or power loss.</p>
+      <p class="finding-body" data-level="informed" data-label="Informed">69 unsafe shutdowns out of 276 power cycles (23.3%). Either the machine is hanging on reboot, or power is being cut.</p>
+      <p class="finding-body" data-level="expert" data-label="Expert">unsafe_shutdowns=69, power_cycles=276 (23.3%). On DRAM-less NVMe drives with HMB this often indicates the controller failing to exit deep APST states at shutdown; consider nvme_core.default_ps_max_latency_us=0.</p>
+      <p class="finding-action"><strong>What to do:</strong> Check for reboot hangs; consider disabling NVMe deep power states.</p>
+      <div class="finding-evidence">nvme0n1: unsafe_shutdowns=69 power_cycles=276</div>
+    </article>
+
+    <article class="finding" data-finding="swap">
+      <div class="finding-head"><h3>No swap configured</h3><span class="finding-cat">Memory</span></div>
+      <p class="finding-body" data-level="plain" data-label="Plain">Your computer has 14.9 GiB of memory and no backup space on disk. When memory runs out, the system has no choice but to close programs abruptly.</p>
+      <p class="finding-body" data-level="informed" data-label="Informed">There is no swap space at all. With 14.9 GiB RAM and 31.2% currently free, a memory spike will trigger the out-of-memory killer instead of slowing down gracefully.</p>
+      <p class="finding-body" data-level="expert" data-label="Expert">swap_total = 0. Available memory is 31.2% of 14.9 GiB. Without swap the kernel cannot reclaim anonymous pages under pressure, so the OOM killer fires on the first sustained spike. zram is the low-cost fix; a swapfile as a second tier prevents hard kills.</p>
+      <p class="finding-action"><strong>What to do:</strong> Add swap: a compressed zram device plus a modest swapfile is safe on any SSD.</p>
+      <div class="finding-evidence">swap_total=0, available=4.6 GiB (31%)</div>
+    </article>
+    <p class="demo-note">Wording is taken verbatim from the app's rule catalog (<code>i18n/en.json</code>). Both findings are from the ThinkPad that started the project; the power-cycle count is illustrative.</p>
+  </div>
+</div></div>
+</section>
+
+<section class="section alt" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">How it works</span>
+      <h2>Rules, not vibes.</h2>
+      <p class="lead">Every line in the report comes from a small, readable rule with a threshold you can check in the source. Nothing is guessed. The <a href="/guides/">guides</a> walk through the same checks by hand.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Probe</h3><p>Reads CPU, memory, swap, drives (including SMART health), GPU, battery, thermal sensors, network and load from <code>/sys</code>, <code>/proc</code>, DMI, hwmon, IOKit or WMI. No root needed, except an opt-in prompt for SMART.</p></li>
+      <li><h3>Judge</h3><p>Rules turn the snapshot into findings with a severity: needs attention now, worth fixing, good to know, working well. Each finding keeps the raw evidence that triggered it.</p></li>
+      <li><h3>Explain</h3><p>Findings render at three reading levels in English or Spanish from one JSON catalog. Switch level or language and the same report re-renders instantly. Adding a language is one file.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="good-for">
+  <div class="wrap">
+    <div class="split">
+      <div class="section-head">
+        <span class="eyebrow">Capability scores</span>
+        <h2>What is it still good for?</h2>
+        <p class="lead">Most tools tell you what you have. Innards tells you what that means for what you want to do: ten workloads, each with a grade and the limiting part named.</p>
+        <p class="lead" style="margin-top:14px">These are the real scores for the 2017 ThinkPad in every screenshot. It's an excellent everyday machine and a decent home server. It is not going to train a model.</p>
+      </div>
+      <div class="card"><ol class="caps" aria-label="Capability grades for a 2017 ThinkPad X1 Carbon"><li class="g-great">
+  <div class="row"><span>Everyday use (web, office, media)</span><span class="grade">Excellent</span></div>
+  <div class="bar" aria-hidden="true"><i style="width:96%"></i></div>
+  
+</li>
+<li class="g-good">
+  <div class="row"><span>Web & app development</span><span class="grade">Good</span></div>
+  <div class="bar" aria-hidden="true"><i style="width:76%"></i></div>
+  <span class="limits">too few CPU cores · not enough memory</span>
+</li>
+<li class="g-good">
+  <div class="row"><span>Home server / self-hosting</span><span class="grade">Good</span></div>
+  <div class="bar" aria-hidden="true"><i style="width:75%"></i></div>
+  <span class="limits">not enough memory</span>
+</li>
+<li class="g-ok">
+  <div class="row"><span>Docker / container stacks</span><span class="grade">Workable</span></div>
+  <div class="bar" aria-hidden="true"><i style="width:54%"></i></div>
+  <span class="limits">too few CPU cores · not enough memory</span>
+</li>
+<li class="g-poor">
+  <div class="row"><span>Photo editing</span><span class="grade">Struggles</span></div>
+  <div class="bar" aria-hidden="true"><i style="width:28%"></i></div>
+  <span class="limits">not enough memory · no dedicated graphics</span>
+</li>
+<li class="g-poor">
+  <div class="row"><span>Running AI models locally</span><span class="grade">Struggles</span></div>
+  <div class="bar" aria-hidden="true"><i style="width:28%"></i></div>
+  <span class="limits">no dedicated GPU</span>
+</li>
+<li class="g-unsuitable">
+  <div class="row"><span>Large compiles (C++, Rust, kernels)</span><span class="grade">Not suitable</span></div>
+  <div class="bar" aria-hidden="true"><i style="width:24%"></i></div>
+  <span class="limits">too few CPU cores · not enough memory</span>
+</li>
+<li class="g-unsuitable">
+  <div class="row"><span>Modern gaming</span><span class="grade">Not suitable</span></div>
+  <div class="bar" aria-hidden="true"><i style="width:23%"></i></div>
+  <span class="limits">too few CPU cores · no dedicated GPU</span>
+</li>
+<li class="g-unsuitable">
+  <div class="row"><span>Video editing</span><span class="grade">Not suitable</span></div>
+  <div class="bar" aria-hidden="true"><i style="width:21%"></i></div>
+  <span class="limits">too few CPU cores · not enough memory · no dedicated graphics</span>
+</li>
+<li class="g-unsuitable">
+  <div class="row"><span>ML training / GPU compute</span><span class="grade">Not suitable</span></div>
+  <div class="bar" aria-hidden="true"><i style="width:4%"></i></div>
+  <span class="limits">no dedicated GPU</span>
+</li></ol></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="advisor">
+  <div class="wrap">
+    <div class="split">
+      <figure class="shot crop" style="order:2">
+        <img src="screenshots/advisor-visual-light-en.png" width="1180" height="1250" alt="The upgrade advisor: chips for what the machine is used for and what bothers you about it, and a chart placing each recommendation by estimated cost and gain against a budget line." loading="lazy">
+      </figure>
+      <div class="section-head" style="order:1">
+        <span class="eyebrow">Upgrade advisor</span>
+        <h2>Advice that will tell you not to spend.</h2>
+        <p class="lead">Five questions. Then a ranked, costed list of what is, and isn't, worth buying for this specific machine. Free software fixes rank first. Soldered memory and a missing GPU slot are named as the reason to change machine, not a part to buy.</p>
+        <p class="lead" style="margin-top:14px">Pro adds where to buy each recommendation new, refurbished or used, in your region.</p>
+        <p style="margin-top:20px"><a href="/pricing">See what each tier unlocks →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="privacy">
+  <div class="wrap">
+    <div class="split">
+      <div class="section-head">
+        <span class="eyebrow">Privacy</span>
+        <h2>Nothing leaves the machine.</h2>
+        <p class="lead">Innards is built so there is nothing to collect. The report goes to your screen or to a Markdown file you choose. That's it.</p>
+        <p style="margin-top:20px"><a href="/privacy">Read the full privacy statement →</a></p>
+      </div>
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span><strong>No network code in the free tier.</strong> No account, no telemetry, no crash reporting, no update pings.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span><strong>Narration is opt-in and uses your own key.</strong> The Supporter summary sends only the already-rendered findings to the Claude API. Never serial numbers, hostnames or process lists.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span><strong>License keys are verified offline.</strong> Paid tiers are unlocked by an Ed25519-signed key that the app checks locally. The one exception: a Pro or Team subscription key within 30 days of expiry asks innards.app once at startup for a renewed key, and sends nothing but the key itself.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span><strong>You can check all of this.</strong> The source is public and the engine is a single Rust crate with no networking dependency.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="pricing">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow">Pricing</span>
+      <h2>Free for everyone. Paid tiers fund the work.</h2>
+      <p class="lead">The full report is free and always will be. The paid tiers unlock convenience features and keep an independent developer developing. The code for all of them is in the same public repository.</p>
+    </div>
+    <div class="tiers"><div class="tier" id="tier-free">
+  <div class="tier-name"><h3>Free</h3></div>
+  <div class="price"><b>$0</b><span></span></div>
+  <p class="price-note">Forever. No account.</p>
+  <ul><li>The full report: findings with evidence, health score, verdict</li><li>Three reading levels: plain, informed, expert</li><li>Every language the app ships with (English and Spanish today)</li><li>Markdown export</li></ul>
+  <a class="btn" href="/download">Download</a>
+  <p class="fine">MIT licensed. No network access at all.</p>
+</div>
+<div class="tier featured" id="tier-supporter">
+  <div class="tier-name"><h3>Supporter</h3><span class="pill accent">Popular</span></div>
+  <div class="price"><b>$9</b><span>once</span></div>
+  <p class="price-note">Pay what you want, from $5.</p>
+  <ul><li class="inherit">Everything in Free</li><li>Upgrade advisor: five questions, ranked and costed recommendations</li><li>Narrated summaries via the Claude API, using your own key</li><li>Machine history: health over time on this device</li></ul>
+  <a class="btn primary" href="/api/checkout?tier=supporter">Become a Supporter</a>
+  <p class="fine">One-time offline license key. Never expires.</p>
+</div>
+<div class="tier" id="tier-pro">
+  <div class="tier-name"><h3>Pro</h3></div>
+  <div class="price"><b>$29</b><span>/ year</span></div>
+  <p class="price-note">For people who run more than one machine.</p>
+  <ul><li class="inherit">Everything in Supporter</li><li>Where to buy each recommendation: new, refurbished and used, by region</li><li>Open and compare another machine's exported report</li></ul>
+  <a class="btn" href="/api/checkout?tier=pro">Get Pro</a>
+  <p class="fine">Yearly offline license key.</p>
+</div>
+<div class="tier" id="tier-team">
+  <div class="tier-name"><h3>Team</h3></div>
+  <div class="price"><b>$4</b><span>/ machine / month</span></div>
+  <p class="price-note">Or $39 per machine per year. Minimum 5 machines.</p>
+  <ul><li class="inherit">Everything in Pro</li><li>Fleet dashboard</li><li>Health over time per machine</li><li>Upgrade budget planning</li><li>CSV export</li><li>Scheduled auto-upload</li></ul>
+  <a class="btn" href="/api/checkout?tier=team">Start with 5 machines</a>
+  <p class="fine">Powered by Threadwise, an open-source CRM. Questions? <a href="mailto:eugene.trotsan@gmail.com?subject=Innards%20Team">Talk to us</a>.</p>
+  <p class="fine">Roadmap: PDF reports, alerts.</p>
+</div>
+<div class="tier" id="tier-enterprise">
+  <div class="tier-name"><h3>Enterprise</h3></div>
+  <div class="price"><b>$2,500</b><span>/ year</span></div>
+  <p class="price-note">From. Priced per deployment.</p>
+  <ul><li class="inherit">Everything in Team</li><li>Self-hosted backend</li><li>SSO / SAML and role-based access</li><li>Hash-chained audit log</li><li>Data residency</li><li>Custom rules</li><li>SLA and priority support</li></ul>
+  <a class="btn" href="mailto:eugene.trotsan@gmail.com?subject=Innards%20Enterprise">Contact sales</a>
+  <p class="fine">Annual contract.</p>
+</div></div>
+    <p class="center small faint" style="margin-top:20px">Prices in USD. Individual licenses are offline keys tied to an email address. <a href="/pricing">Full comparison and FAQ →</a></p>
+  </div>
+</section>
+
+<section class="section" id="download">
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <h2>Find out what your computer is still good for.</h2>
+        <p>About 8 MB on Linux. One scan takes about a second. Installers for deb, AppImage, rpm, dmg and msi.</p>
+      </div>
+      <div class="btn-row">
+        <a class="btn primary lg" href="/download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download Innards</a>
+        <a class="btn ghost lg" href="https://github.com/buengenio/innards" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="/"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+      <p>Look inside your machine. A free, open-source hardware report for Linux, macOS and Windows that explains itself in plain language.</p>
+    </div>
+    <div>
+      <h2>Product</h2>
+      <ul>
+        <li><a href="/download">Download</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="https://github.com/buengenio/innards/releases/latest" rel="noopener">Releases</a></li>
+        <li><a href="https://github.com/buengenio/innards" rel="noopener">Source on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Resources</h2>
+      <ul>
+        <li><a href="/guides/">Guides</a></li>
+        <li><a href="https://github.com/buengenio/innards/tree/main/docs" rel="noopener">Documentation</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/docs/ARCHITECTURE.md" rel="noopener">Architecture</a></li>
+        <li><a href="https://github.com/buengenio/innards/issues" rel="noopener">Report an issue</a></li>
+        <li><a href="/press">Press kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Company</h2>
+      <ul>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/LICENSE" rel="noopener">MIT license</a></li>
+        <li><a href="mailto:eugene.trotsan@gmail.com">Contact</a></li>
+      </ul>
+    </div>
+    <div class="colophon">
+      <span>© 2026 Eugene Trotsan. Innards is MIT licensed.</span>
+      <span>This site sets no cookies and makes no third-party requests.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,59 @@
+[
+  {
+    "id": "rec.ram_soldered",
+    "kind": "No purchase",
+    "impact": "Big gain",
+    "cost": "Free",
+    "over_budget": false,
+    "title": "Memory is the ceiling — and it's soldered",
+    "body": "You have 16 GB and your workloads want 32 GB, but this machine's memory can't be upgraded.",
+    "why": "This is the strongest reason to consider a different machine, not a part.",
+    "helps": [
+      "Web & app development",
+      "Docker / container stacks",
+      "Home server / self-hosting",
+      "Running AI models locally"
+    ],
+    "shopping_query": null
+  },
+  {
+    "id": "rec.gpu_laptop_no_slot",
+    "kind": "No purchase",
+    "impact": "Big gain",
+    "cost": "Free",
+    "over_budget": false,
+    "title": "GPU work needs a different machine",
+    "body": "This laptop has no dedicated GPU and can't take one. For gaming or AI work, consider a desktop, a machine with a discrete GPU, or renting GPU time.",
+    "why": "No upgrade path exists for graphics on this chassis.",
+    "helps": [
+      "Running AI models locally"
+    ],
+    "shopping_query": null
+  },
+  {
+    "id": "rec.battery_replace",
+    "kind": "Service",
+    "impact": "Big gain",
+    "cost": "$40–$120",
+    "over_budget": false,
+    "title": "Replace the battery",
+    "body": "Health is 45%. A replacement for the ThinkPad X1 Carbon 5th is usually a 10-minute job with a screwdriver.",
+    "why": "You said you use it unplugged; this is the cheapest way to get hours back.",
+    "helps": [],
+    "shopping_query": "ThinkPad X1 Carbon 5th replacement battery"
+  },
+  {
+    "id": "rec.machine_replace",
+    "kind": "Replace",
+    "impact": "Big gain",
+    "cost": "$1200–$2500",
+    "over_budget": true,
+    "title": "Plan a replacement machine",
+    "body": "This 9-year-old machine (2 cores, 16 GB) can't reach what you need. Look for at least 6 cores and 32 GB RAM (laptop).",
+    "why": "Several of your workloads score poorly and the limiting parts can't be upgraded.",
+    "helps": [
+      "Running AI models locally"
+    ],
+    "shopping_query": "laptop 6 cores 32GB RAM dedicated GPU"
+  }
+]

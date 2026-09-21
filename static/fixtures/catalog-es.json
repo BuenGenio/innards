@@ -1,0 +1,94 @@
+{
+  "advisor": {
+    "budget": "¿Cuánto estarías dispuesto a gastar?",
+    "horizon": "¿Cuándo?",
+    "options": {
+      "battery": "La batería no dura",
+      "crashes": "Se cuelga o se bloquea",
+      "heat_noise": "Se calienta o hace ruido",
+      "no": "No",
+      "no_limit": "Lo que haga falta",
+      "none": "Nada en particular",
+      "now": "Ahora",
+      "out_of_memory": "Se queda sin memoria",
+      "six_months": "En los próximos 6 meses",
+      "slow": "Va lento",
+      "storage": "Falta espacio",
+      "under_100": "Menos de 100 $",
+      "under_1500": "Menos de 1.500 $",
+      "under_300": "Menos de 300 $",
+      "under_800": "Menos de 800 $",
+      "year": "Dentro de un año",
+      "yes": "Sí"
+    },
+    "pains": "¿Qué te molesta de él?",
+    "portability": "¿Necesitas usarlo fuera de un escritorio?",
+    "uses": "¿Para qué usas este equipo?"
+  },
+  "categories": {
+    "battery": "Batería",
+    "cpu": "Procesador",
+    "gpu": "Gráficos",
+    "memory": "Memoria",
+    "network": "Red",
+    "storage": "Almacenamiento",
+    "system": "Sistema",
+    "thermal": "Refrigeración"
+  },
+  "grades": {
+    "good": "Bien",
+    "great": "Excelente",
+    "ok": "Aceptable",
+    "poor": "Le cuesta",
+    "unsuitable": "No apto"
+  },
+  "impacts": {
+    "high": "Mejora grande",
+    "low": "Mejora pequeña",
+    "medium": "Mejora notable"
+  },
+  "rec_kinds": {
+    "keep": "Sin compra",
+    "replace": "Sustituir",
+    "service": "Mantenimiento",
+    "software": "Arreglo gratis",
+    "upgrade": "Mejora"
+  },
+  "severities": {
+    "critical": "Atención inmediata",
+    "good": "Funciona bien",
+    "info": "Bueno saberlo",
+    "warning": "Conviene arreglar"
+  },
+  "ui": {
+    "action": "Qué hacer",
+    "battery": "Salud de la batería",
+    "capabilities": "Para qué sirve bien esta máquina",
+    "cpu": "Procesador",
+    "free": "Gratis",
+    "generated_by": "Generado por Innards — el informe no sale de tu equipo.",
+    "gpu": "Gráficos",
+    "memory": "Memoria",
+    "not_viable_no_mainline": "su chip no tiene soporte en el Linux oficial",
+    "not_viable_ram": "menos de 4 GB de memoria",
+    "notes": "Notas de diagnóstico",
+    "os": "Sistema",
+    "report_title": "Informe de Innards",
+    "storage": "Almacenamiento",
+    "verdict": "Veredicto:"
+  },
+  "workloads": {
+    "containers": "Docker / contenedores",
+    "edge_ai": "IA en el dispositivo: clasificar, indexar, modelos pequeños",
+    "everyday": "Uso diario (web, ofimática, multimedia)",
+    "gaming": "Juegos actuales",
+    "heavy_compile": "Compilaciones grandes (C++, Rust, kernels)",
+    "home_server": "Servidor doméstico / autoalojamiento",
+    "local_llm": "Ejecutar modelos de IA en local",
+    "ml_training": "Entrenamiento de ML / cómputo GPU",
+    "photo_editing": "Edición de fotos",
+    "portable_server": "Servidor doméstico/nube portátil (servicios autoalojados donde vayas)",
+    "video_editing": "Edición de vídeo",
+    "web_dev": "Desarrollo web y de apps"
+  }
+}

@@ -1,0 +1,253 @@
+{
+  "lang": "en",
+  "level": "plain",
+  "summary": {
+    "machine": "LENOVO ThinkPad X1 Carbon 5th",
+    "cpu": "Intel Core i7-7500U · 2C/4T",
+    "memory": "16 GB LPDDR3",
+    "storage": "1.8 TiB NVMe",
+    "gpu": "HD Graphics 620",
+    "os": "Ubuntu 25.10",
+    "battery": "45%",
+    "health_score": 65
+  },
+  "verdict": "One issue needs attention soon, plus 5 smaller one(s).",
+  "findings": [
+    {
+      "id": "storage.fs_nearly_full",
+      "severity": "critical",
+      "category": "Storage",
+      "title": "/mnt/sdc1 is 99.5% full",
+      "body": "The drive at /mnt/sdc1 has only 3.8 GiB free.",
+      "action": "Free space or move data elsewhere.",
+      "evidence": []
+    },
+    {
+      "id": "storage.fs_nearly_full",
+      "severity": "warning",
+      "category": "Storage",
+      "title": "/media/buengenio/sda4 is 90.5% full",
+      "body": "The drive at /media/buengenio/sda4 has only 62.9 GiB free.",
+      "action": "Free space or move data elsewhere.",
+      "evidence": []
+    },
+    {
+      "id": "cpu.old",
+      "severity": "warning",
+      "category": "Processor",
+      "title": "Processor is about 9 years old",
+      "body": "The Intel Core i7-7500U came out around 2017. It still works, but newer chips do the same work in a fraction of the time and power.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "battery.worn",
+      "severity": "warning",
+      "category": "Battery",
+      "title": "Battery holds 45.3% of its original capacity",
+      "body": "The battery has worn down: it now holds 25.9 Wh of the 57.0 Wh it was built with, after 1729 charge cycles. Expect short runtimes.",
+      "action": "Replace the battery if portability matters.",
+      "evidence": []
+    },
+    {
+      "id": "system.high_load",
+      "severity": "warning",
+      "category": "System",
+      "title": "System is under heavy load",
+      "body": "The computer is working harder than it can keep up with right now.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "system.io_wait_high",
+      "severity": "warning",
+      "category": "System",
+      "title": "Waiting on disks 34.7% of the time",
+      "body": "A large part of the time, the processor is just waiting for a disk to respond.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "memory.soldered",
+      "severity": "info",
+      "category": "Memory",
+      "title": "Memory cannot be upgraded",
+      "body": "The 16 GB of memory is built into the board, so it can't be increased later.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "storage.smart_unavailable",
+      "severity": "info",
+      "category": "Storage",
+      "title": "Drive health could not be read",
+      "body": "Innards couldn't check the health of your drives. Running it with administrator rights, or installing smartmontools, enables this.",
+      "action": "Install smartmontools and rerun with elevated rights.",
+      "evidence": []
+    },
+    {
+      "id": "cpu.few_cores",
+      "severity": "info",
+      "category": "Processor",
+      "title": "Only 2 CPU cores",
+      "body": "This processor has 2 cores. Heavy tasks that split across many cores will feel slow.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "gpu.integrated_only",
+      "severity": "info",
+      "category": "Graphics",
+      "title": "Graphics are built into the processor",
+      "body": "Graphics come from the processor itself (HD Graphics 620). Fine for video and desktop work; not for modern games or AI training.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "memory.swap_ok",
+      "severity": "good",
+      "category": "Memory",
+      "title": "Swap is configured",
+      "body": "Your computer has 12.0 GiB of backup memory space, so it won't crash the moment memory runs out.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "storage.system_nvme",
+      "severity": "good",
+      "category": "Storage",
+      "title": "Fast NVMe system drive",
+      "body": "The main drive (KINGSTON SNV2S2000G, 1.8 TiB) is the fast modern kind.",
+      "action": null,
+      "evidence": []
+    }
+  ],
+  "capabilities": [
+    {
+      "workload": "everyday",
+      "label": "Everyday use (web, office, media)",
+      "score": 96,
+      "grade": "great",
+      "grade_label": "Excellent",
+      "limits": []
+    },
+    {
+      "workload": "web_dev",
+      "label": "Web & app development",
+      "score": 76,
+      "grade": "good",
+      "grade_label": "Good",
+      "limits": [
+        "too few CPU cores",
+        "not enough memory"
+      ]
+    },
+    {
+      "workload": "containers",
+      "label": "Docker / container stacks",
+      "score": 54,
+      "grade": "ok",
+      "grade_label": "Workable",
+      "limits": [
+        "too few CPU cores",
+        "not enough memory"
+      ]
+    },
+    {
+      "workload": "home_server",
+      "label": "Home server / self-hosting",
+      "score": 75,
+      "grade": "good",
+      "grade_label": "Good",
+      "limits": [
+        "not enough memory"
+      ]
+    },
+    {
+      "workload": "portable_server",
+      "label": "Portable home/cloud server (self-hosted services on the go)",
+      "score": 88,
+      "grade": "great",
+      "grade_label": "Excellent",
+      "limits": [
+        "too few CPU cores"
+      ]
+    },
+    {
+      "workload": "photo_editing",
+      "label": "Photo editing",
+      "score": 28,
+      "grade": "poor",
+      "grade_label": "Struggles",
+      "limits": [
+        "not enough memory",
+        "no dedicated graphics"
+      ]
+    },
+    {
+      "workload": "heavy_compile",
+      "label": "Large compiles (C++, Rust, kernels)",
+      "score": 24,
+      "grade": "unsuitable",
+      "grade_label": "Not suitable",
+      "limits": [
+        "too few CPU cores",
+        "not enough memory"
+      ]
+    },
+    {
+      "workload": "video_editing",
+      "label": "Video editing",
+      "score": 21,
+      "grade": "unsuitable",
+      "grade_label": "Not suitable",
+      "limits": [
+        "too few CPU cores",
+        "not enough memory",
+        "no dedicated graphics"
+      ]
+    },
+    {
+      "workload": "local_llm",
+      "label": "Running AI models locally",
+      "score": 28,
+      "grade": "poor",
+      "grade_label": "Struggles",
+      "limits": [
+        "no dedicated GPU"
+      ]
+    },
+    {
+      "workload": "edge_ai",
+      "label": "On-device AI: classify, index, small models",
+      "score": 81,
+      "grade": "good",
+      "grade_label": "Good",
+      "limits": [
+        "too few CPU cores"
+      ]
+    },
+    {
+      "workload": "gaming",
+      "label": "Modern gaming",
+      "score": 23,
+      "grade": "unsuitable",
+      "grade_label": "Not suitable",
+      "limits": [
+        "too few CPU cores",
+        "no dedicated GPU"
+      ]
+    },
+    {
+      "workload": "ml_training",
+      "label": "ML training / GPU compute",
+      "score": 4,
+      "grade": "unsuitable",
+      "grade_label": "Not suitable",
+      "limits": [
+        "no dedicated GPU"
+      ]
+    }
+  ],
+  "notes": []
+}

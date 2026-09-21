@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>No swap: what happens when memory runs out — Innards</title>
+  <meta name="description" content="Why a Linux machine with no swap freezes and then kills programs instead of slowing down, and how zram plus a swapfile fix it in ten minutes.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://innards.app/guides/no-swap-what-happens-when-memory-runs-out">
+  <meta name="author" content="Eugene Trotsan">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+  <link rel="stylesheet" href="../style.css">
+  <script src="../site.js" defer></script>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Innards">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="No swap: what happens when memory runs out — Innards">
+  <meta property="og:description" content="Why a Linux machine with no swap freezes and then kills programs instead of slowing down, and how zram plus a swapfile fix it in ten minutes.">
+  <meta property="og:url" content="https://innards.app/guides/no-swap-what-happens-when-memory-runs-out">
+  <meta property="og:image" content="https://innards.app/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+  <meta property="article:published_time" content="2026-09-21">
+  <meta property="article:modified_time" content="2026-09-21">
+  <meta property="article:author" content="https://github.com/buengenio">
+  <meta property="article:section" content="Guides">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="No swap: what happens when memory runs out — Innards">
+  <meta name="twitter:description" content="Why a Linux machine with no swap freezes and then kills programs instead of slowing down, and how zram plus a swapfile fix it in ten minutes.">
+  <meta name="twitter:image" content="https://innards.app/og.png">
+  <meta name="twitter:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Person",
+   "@id": "https://innards.app/#eugene",
+   "name": "Eugene Trotsan",
+   "url": "https://github.com/buengenio",
+   "email": "mailto:eugene.trotsan@gmail.com",
+   "sameAs": [
+    "https://github.com/buengenio"
+   ]
+  },
+  {
+   "@type": "Article",
+   "@id": "https://innards.app/guides/no-swap-what-happens-when-memory-runs-out#article",
+   "headline": "Your laptop has no swap. Here is what happens when memory runs out.",
+   "description": "Why a Linux machine with no swap freezes and then kills programs instead of slowing down, and how zram plus a swapfile fix it in ten minutes.",
+   "url": "https://innards.app/guides/no-swap-what-happens-when-memory-runs-out",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://innards.app/guides/no-swap-what-happens-when-memory-runs-out"
+   },
+   "datePublished": "2026-09-21",
+   "dateModified": "2026-09-21",
+   "author": {
+    "@id": "https://innards.app/#eugene"
+   },
+   "publisher": {
+    "@id": "https://innards.app/#eugene"
+   },
+   "image": "https://innards.app/og.png",
+   "inLanguage": "en",
+   "wordCount": 1012,
+   "isPartOf": {
+    "@id": "https://innards.app/#website"
+   },
+   "about": {
+    "@id": "https://innards.app/#app"
+   },
+   "articleSection": "Guides"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Innards",
+     "item": "https://innards.app/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Guides",
+     "item": "https://innards.app/guides/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "No swap: what happens when memory runs out",
+     "item": "https://innards.app/guides/no-swap-what-happens-when-memory-runs-out"
+    }
+   ]
+  }
+ ]
+}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Innards home"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/download">Download</a><a href="/pricing">Pricing</a><a href="/guides/" aria-current="page">Guides</a><a href="/privacy">Privacy</a><a href="/press">Press</a>
+      <a href="https://github.com/buengenio/innards" rel="noopener">GitHub</a>
+      <a class="btn primary" href="/download">Get Innards</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<article class="article">
+  <div class="page-head">
+    <div class="wrap narrow">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Innards</a></li><li><a href="/guides/">Guides</a></li><li aria-current="page">No swap: what happens when memory runs out</li></ol></nav>
+      <span class="eyebrow">Guide</span>
+      <h1>Your laptop has no swap. Here is what happens when memory runs out.</h1>
+      <p class="lead">A common setup, especially on fast laptops with plenty of RAM: no swap at all, because "swap is slow" or because the installer did not create one. It works right up until the first memory spike, and then it fails in the worst possible way.</p>
+      <p class="article-meta">By <a href="/press#contact">Eugene Trotsan</a> · <time datetime="2026-09-21">21 September 2026</time> · 5 min read</p>
+    </div>
+  </div>
+  <div class="section tight">
+    <div class="wrap narrow prose">
+<h2>What the kernel does when memory runs out</h2>
+<p>Memory in use falls into two kinds. <em>File-backed</em> pages are copies of things that exist on disk: program code, libraries, the page cache. The kernel can drop them at any time and re-read them later. <em>Anonymous</em> pages are everything else: your browser tabs, the heap of whatever is running, the contents of a spreadsheet. They exist only in RAM, and the only place they can go when RAM is short is swap.</p>
+<p>With no swap, anonymous pages have nowhere to go. So as memory fills, the kernel does the only thing it can: it evicts file-backed pages instead, including the code of the programs that are running. Those programs immediately need that code again, so it is read back from disk, evicted again, read again. This is thrashing. The machine is not crashed, but the mouse stutters, windows stop repainting, and the disk light stays on. It can last seconds or many minutes.</p>
+<p>Eventually the kernel gives up and invokes the out-of-memory killer, which picks one process, usually the largest, and terminates it with no warning and no chance to save. On a desktop that is typically the browser; on a home server it is the database or the container you most needed.</p>
+<p>That is the whole problem with no swap: the failure is not slow, it is abrupt, and it happens at the moment of peak demand.</p>
+
+<h2>What swap changes</h2>
+<p>With swap, the kernel has a second option. Anonymous pages that have not been touched for a while (the tab you opened yesterday, a service's start-up buffers) can be written out to make room. The active working set stays in RAM. Under a real spike the machine still slows down, but it slows down instead of killing things, and it recovers when the spike passes.</p>
+<p>Two objections come up every time:</p>
+<ul>
+<li><strong>"I have 16 GB, I don't need swap."</strong> The amount of RAM changes how often you hit the limit, not what happens when you do. The ThinkPad this guide was written on had 16 GB, ran a home server, and still hung the moment something briefly needed a little more.</li>
+<li><strong>"Swap wears out the SSD."</strong> A modern SSD is rated for hundreds of terabytes of writes; occasional swapping is a rounding error. And the first tier of swap in the setup below does not touch the disk at all.</li>
+</ul>
+
+<h2>The two-tier setup: zram first, a swapfile behind it</h2>
+<p><strong>zram</strong> is a compressed block device in RAM used as swap. Pages swapped to it are compressed (commonly 2–3× with zstd or lz4) and stay in memory, so "swapping" to zram costs a little CPU and no disk I/O. It is the cheapest possible cushion and is what Fedora enables by default.</p>
+<p>A <strong>swapfile</strong> on the SSD is the second tier: slower, but it is where pages go once zram is full, and it is what stops hard kills during a sustained spike. Giving zram a higher priority than the file means the kernel fills zram first.</p>
+
+<h3>zram</h3>
+<pre><code># Debian / Ubuntu
+sudo apt install zram-tools
+sudoedit /etc/default/zramswap     # e.g. ALGO=zstd  PERCENT=50  PRIORITY=100
+sudo systemctl restart zramswap
+
+# Fedora (already on by default; config lives here)
+sudoedit /etc/systemd/zram-generator.conf
+# [zram0]
+# zram-size = min(ram / 2, 4096)
+
+# Arch
+sudo pacman -S zram-generator   # same config file as Fedora</code></pre>
+<p>A zram device of half your RAM is a sensible default; it only uses memory as pages are actually compressed into it.</p>
+
+<h3>Swapfile</h3>
+<pre><code>sudo fallocate -l 8G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon --priority 5 /swapfile
+echo '/swapfile none swap sw,pri=5 0 0' | sudo tee -a /etc/fstab</code></pre>
+<p>On <strong>btrfs</strong>, <code>fallocate</code> is not enough because the file must be created without copy-on-write; use <code>sudo btrfs filesystem mkswapfile --size 8g /swapfile</code> (btrfs-progs 6.1 or newer) instead of the first three lines. On ext4 and XFS the commands above are fine.</p>
+<p>Check the result:</p>
+<pre><code>swapon --show
+# NAME       TYPE      SIZE USED PRIO
+# /dev/zram0 partition   4G   0B  100
+# /swapfile  file        8G   0B    5</code></pre>
+<p>That is the layout on the ThinkPad now: 4 GB of zram at priority 100 in front of an 8 GB file at priority 5. Innards reports it as "Swap is configured: 12.0 GiB of swap is available (8.0 GiB (File, prio 5), 4.0 GiB (Zram, prio 100))."</p>
+
+<h2>How much, and a few settings</h2>
+<ul>
+<li><strong>Size.</strong> zram at half of RAM; a swapfile of 4–8 GB is enough for a cushion on a machine with 8–32 GB. The old "twice your RAM" rule dates from when RAM was small.</li>
+<li><strong>Hibernation</strong> needs a swap partition or file at least as large as the memory you actually use, and cannot use zram. If you hibernate, size the file with that in mind.</li>
+<li><strong><code>vm.swappiness</code></strong> (default 60) sets how eagerly the kernel swaps anonymous pages rather than dropping cache. With zram in front, a higher value is reasonable since swapping is cheap; the kernel accepts up to 200 since 5.8. It is a tuning knob, not a requirement.</li>
+<li><strong>Userspace OOM daemons.</strong> Ubuntu (since 22.04) and Fedora ship <code>systemd-oomd</code>, which watches memory pressure and kills a whole application group before the kernel's killer has to act. It is a better-aimed kill, but it is still a kill; swap is what avoids it.</li>
+</ul>
+
+<h2>Windows and macOS</h2>
+<p>Both manage this for you, and both let you break it. On Windows, keep "Automatically manage paging file size for all drives" ticked (System → Advanced system settings → Performance → Virtual memory); disabling the pagefile to "save space" is the same failure mode as no swap on Linux. macOS creates swap files in <code>/private/var/vm</code> on its own and shows the state as the memory pressure graph in Activity Monitor; there is no supported way to turn it off, and no reason to.</p>
+
+<aside class="tells" aria-labelledby="tells-h">
+  <p class="eyebrow" id="tells-h">What Innards would tell you</p>
+<div class="tells-item critical"><h3>No swap configured <span class="finding-cat">Memory</span></h3>
+<p><b>Plain:</b> Your computer has 16 GB of memory and no backup space on disk. When memory runs out, the system has no choice but to close programs abruptly.</p>
+<p><b>Expert:</b> swap_total = 0. Available memory is 12.3% of 16 GB. Without swap the kernel cannot reclaim anonymous pages under pressure, so the OOM killer fires on the first sustained spike. zram is the low-cost fix; a swapfile as a second tier prevents hard kills.</p>
+<p class="tells-action"><strong>What to do:</strong> Add swap: a compressed zram device plus a modest swapfile is safe on any SSD.</p></div>
+<div class="tells-item good"><h3>Swap is configured <span class="finding-cat">Memory</span></h3>
+<p><b>Informed:</b> 12.0 GiB of swap is available (8.0 GiB (File, prio 5), 4.0 GiB (Zram, prio 100)). Memory spikes will slow things down rather than kill programs.</p></div>
+  <p class="tells-note">Wording is taken verbatim from the app's rule catalog (<code>i18n/en.json</code>), filled in with values from the report of a real 2017 ThinkPad X1 Carbon.</p>
+  <p class="tells-cta"><a class="btn primary" href="/download">Download Innards</a><span class="small faint">Free, open source, nothing leaves the machine.</span></p>
+</aside>
+
+<h2>Related guides</h2>
+<ul class="related"><li><a href="/guides/upgrade-ram-or-buy-new-laptop">Should I upgrade RAM or buy a new laptop?</a><span class="small faint">How to find out whether your laptop&#x27;s memory is soldered, how much RAM each kind of work needs, and when soldered memory is the reason to change machine.</span></li><li><a href="/guides/check-ssd-nvme-health-linux">How to check SSD and NVMe health on Linux</a><span class="small faint">smartctl and nvme-cli step by step: percentage_used, available spare, unsafe shutdowns, media errors, temperature history, and which numbers mean replace.</span></li><li><a href="/guides/is-my-old-laptop-still-good-enough">Is my old laptop still good enough?</a><span class="small faint">Judge an ageing laptop by what you actually do with it: which workloads it still handles, which parts are the ceiling, and what is worth fixing for free.</span></li></ul>
+    </div>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="/"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+      <p>Look inside your machine. A free, open-source hardware report for Linux, macOS and Windows that explains itself in plain language.</p>
+    </div>
+    <div>
+      <h2>Product</h2>
+      <ul>
+        <li><a href="/download">Download</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="https://github.com/buengenio/innards/releases/latest" rel="noopener">Releases</a></li>
+        <li><a href="https://github.com/buengenio/innards" rel="noopener">Source on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Resources</h2>
+      <ul>
+        <li><a href="/guides/">Guides</a></li>
+        <li><a href="https://github.com/buengenio/innards/tree/main/docs" rel="noopener">Documentation</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/docs/ARCHITECTURE.md" rel="noopener">Architecture</a></li>
+        <li><a href="https://github.com/buengenio/innards/issues" rel="noopener">Report an issue</a></li>
+        <li><a href="/press">Press kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Company</h2>
+      <ul>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/LICENSE" rel="noopener">MIT license</a></li>
+        <li><a href="mailto:eugene.trotsan@gmail.com">Contact</a></li>
+      </ul>
+    </div>
+    <div class="colophon">
+      <span>© 2026 Eugene Trotsan. Innards is MIT licensed.</span>
+      <span>This site sets no cookies and makes no third-party requests.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%sveltekit.assets%/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Innards</title>
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">%sveltekit.body%</div>
+    <script>
+      // Design-mode screenshots: keep the load event pending until the UI has data.
+      if (new URLSearchParams(location.search).get("snap") === "1") {
+        document.write('<img src="/__snap-hold?ms=2500" alt="" width="1" height="1" style="position:absolute;opacity:0">');
+      }
+    </script>
+  </body>
+</html>

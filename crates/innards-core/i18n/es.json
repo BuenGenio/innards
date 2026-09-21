@@ -1,0 +1,425 @@
+{
+  "ui": {
+    "report_title": "Informe de Innards",
+    "cpu": "Procesador",
+    "memory": "Memoria",
+    "storage": "Almacenamiento",
+    "gpu": "Gráficos",
+    "os": "Sistema",
+    "battery": "Salud de la batería",
+    "verdict": "Veredicto:",
+    "action": "Qué hacer",
+    "capabilities": "Para qué sirve bien esta máquina",
+    "notes": "Notas de diagnóstico",
+    "generated_by": "Generado por Innards — el informe no sale de tu equipo.",
+    "free": "Gratis",
+    "not_viable_ram": "menos de 4 GB de memoria",
+    "not_viable_no_mainline": "su chip no tiene soporte en el Linux oficial"
+  },
+  "verdict": {
+    "great": "Nada requiere tu atención. Este equipo está en buena forma.",
+    "fine": "Sin emergencias, pero {warnings} cosa(s) te están costando rendimiento o fiabilidad.",
+    "attention": "Un problema necesita atención pronto, además de {warnings} menor(es).",
+    "urgent": "{critical} problemas necesitan atención ahora, además de {warnings} menor(es)."
+  },
+  "severities": { "critical": "Atención inmediata", "warning": "Conviene arreglar", "info": "Bueno saberlo", "good": "Funciona bien" },
+  "categories": { "memory": "Memoria", "storage": "Almacenamiento", "cpu": "Procesador", "thermal": "Refrigeración", "battery": "Batería", "gpu": "Gráficos", "network": "Red", "system": "Sistema" },
+  "grades": { "unsuitable": "No apto", "poor": "Le cuesta", "ok": "Aceptable", "good": "Bien", "great": "Excelente" },
+  "workloads": {
+    "everyday": "Uso diario (web, ofimática, multimedia)",
+    "web_dev": "Desarrollo web y de apps",
+    "heavy_compile": "Compilaciones grandes (C++, Rust, kernels)",
+    "containers": "Docker / contenedores",
+    "home_server": "Servidor doméstico / autoalojamiento",
+    "video_editing": "Edición de vídeo",
+    "local_llm": "Ejecutar modelos de IA en local",
+    "gaming": "Juegos actuales",
+    "ml_training": "Entrenamiento de ML / cómputo GPU",
+    "photo_editing": "Edición de fotos",
+    "portable_server": "Servidor doméstico/nube portátil (servicios autoalojados donde vayas)",
+    "edge_ai": "IA en el dispositivo: clasificar, indexar, modelos pequeños"
+  },
+  "limits": {
+    "hdd": "disco duro mecánico",
+    "ram": "memoria insuficiente",
+    "cores": "pocos núcleos de CPU",
+    "igpu": "sin gráfica dedicada",
+    "no_gpu": "sin GPU dedicada",
+    "vram": "poca memoria gráfica",
+    "no_avx2": "la CPU no tiene AVX2",
+    "no_dotprod": "la CPU no tiene instrucciones ARM de producto escalar",
+    "no_active_cooling": "sin ventilador: las cargas sostenidas se ralentizan",
+    "android_only": "Android, no un Linux de verdad",
+    "no_mainline": "no hay Linux oficial utilizable para este chip",
+    "slow_storage": "almacenamiento lento (eMMC/SD)",
+    "wifi_only": "solo Wi-Fi"
+  },
+  "mainline": {
+    "excellent": "soporte excelente en el kernel Linux oficial (postmarketOS funciona muy bien)",
+    "good": "buen soporte en el kernel Linux oficial (usable a diario, con algunas carencias)",
+    "partial": "soporte parcial en el kernel Linux oficial (arranca, faltan piezas clave)",
+    "none": "sin soporte en el kernel Linux oficial (solo el kernel Android del fabricante)",
+    "unknown": "soporte desconocido en el kernel Linux oficial"
+  },
+  "rec_kinds": { "software": "Arreglo gratis", "upgrade": "Mejora", "service": "Mantenimiento", "replace": "Sustituir", "keep": "Sin compra" },
+  "impacts": { "low": "Mejora pequeña", "medium": "Mejora notable", "high": "Mejora grande" },
+  "findings": {
+    "memory.no_swap": {
+      "title": "No hay swap configurada",
+      "plain": "Tu equipo tiene {total} de memoria y ningún espacio de reserva en disco. Cuando la memoria se agote, el sistema cerrará programas de golpe.",
+      "informed": "No existe espacio de intercambio (swap). Con {total} de RAM y un {available_pct}% libre ahora mismo, un pico de memoria activará el OOM killer en vez de ralentizar el sistema.",
+      "expert": "swap_total = 0. Memoria disponible: {available_pct}% de {total}. Sin swap el kernel no puede reclamar páginas anónimas bajo presión, así que el OOM killer actúa en el primer pico sostenido. zram es la solución barata; un swapfile como segundo nivel evita cierres forzosos.",
+      "action": "Añade swap: un dispositivo zram comprimido más un swapfile moderado es seguro en cualquier SSD."
+    },
+    "memory.swap_ok": {
+      "title": "Swap configurada",
+      "plain": "Tu equipo tiene {swap} de memoria de reserva, así que no se bloqueará en cuanto se llene la memoria.",
+      "informed": "Hay {swap} de swap disponibles ({backends}). Los picos de memoria ralentizarán en vez de matar programas.",
+      "expert": "Backends de swap: {backends}. Total {swap}.",
+      "action": ""
+    },
+    "memory.low_available": {
+      "title": "La memoria está casi llena",
+      "plain": "Solo quedan {available} de memoria libre ({available_pct}%). Puede que todo vaya lento o que se cierren programas.",
+      "informed": "La memoria disponible ha bajado a {available} ({available_pct}%). Cierra lo que no uses o mira qué la está consumiendo.",
+      "expert": "MemAvailable = {available} ({available_pct}% del total). La caché recuperable ya está contada; esto es presión real.",
+      "action": "Cierra aplicaciones que no uses; revisa los mayores consumidores de memoria."
+    },
+    "memory.tmpfs_heavy": {
+      "title": "Los archivos temporales consumen memoria",
+      "plain": "{tmpfs} de tu memoria los ocupan archivos temporales que viven en RAM en lugar de en disco.",
+      "informed": "Los sistemas temporales (/tmp, /dev/shm) contienen {tmpfs}: un {pct}% de la RAM. Los archivos grandes ahí son memoria, no disco.",
+      "expert": "Uso de tmpfs = {tmpfs} ({pct}% de MemTotal) entre /tmp, /dev/shm y /run/user. Los archivos de trabajo grandes deberían ir a una ruta en disco o TMPDIR.",
+      "action": "Mueve o borra los archivos grandes de /tmp."
+    },
+    "memory.hog": {
+      "title": "Un programa usa mucha memoria",
+      "plain": "{process} está usando {rss}, alrededor del {pct}% de toda tu memoria.",
+      "informed": "{process} retiene {rss} ({pct}% de la RAM). Si no es lo esperado, reiniciarlo la liberará.",
+      "expert": "Mayor RSS: {process} = {rss} ({pct}%).",
+      "action": ""
+    },
+    "memory.small_total": {
+      "title": "Memoria limitada",
+      "plain": "Este equipo tiene {total} GB de memoria, algo escaso para el software actual.",
+      "informed": "{total} GB de RAM está por debajo de lo que navegadores y herramientas modernas necesitan con holgura (8–16 GB).",
+      "expert": "MemTotal = {total} GiB.",
+      "action": "Añade RAM si el equipo lo permite; si no, mantén menos cosas abiertas."
+    },
+    "memory.soldered": {
+      "title": "La memoria no se puede ampliar",
+      "plain": "Los {total} GB de memoria van soldados a la placa, así que no se pueden aumentar.",
+      "informed": "{total} GB {kind} soldados. Lo que tienes ahora es el techo de este equipo.",
+      "expert": "Formato DMI: row-of-chips ({kind}, {total} GiB). Sin ranuras SODIMM.",
+      "action": ""
+    },
+    "memory.upgradeable": {
+      "title": "La memoria se puede ampliar",
+      "plain": "La memoria de este equipo ({total} GB) se puede aumentar añadiendo o cambiando módulos.",
+      "informed": "{total} GB en {modules} módulo(s) en ranuras. Añadir RAM es la mejora grande más barata.",
+      "expert": "{modules} módulo(s) DIMM/SODIMM, {total} GiB en total.",
+      "action": ""
+    },
+    "storage.root_nearly_full": {
+      "title": "El disco del sistema está al {used_pct}%",
+      "plain": "Al disco principal solo le quedan {free} libres. Cuando se llene, el equipo puede fallar o no actualizarse.",
+      "informed": "{mount} está al {used_pct}% ({free} de {total} libres). Por debajo de ~10% libre los SSD se ralentizan y las actualizaciones fallan.",
+      "expert": "{mount}: {used_pct}% usado, {free} libres. La amplificación de escritura del SSD sube mucho pasado el ~90%; los gestores de paquetes necesitan margen.",
+      "action": "Libera al menos un 10–15% del disco."
+    },
+    "storage.fs_nearly_full": {
+      "title": "{mount} está al {used_pct}%",
+      "plain": "Al disco en {mount} solo le quedan {free} libres.",
+      "informed": "{mount} está al {used_pct}% ({free} de {total} libres). Escribir en un disco casi lleno es lento.",
+      "expert": "{mount}: {used_pct}% usado, {free} libres.",
+      "action": "Libera espacio o mueve datos a otro sitio."
+    },
+    "storage.system_hdd": {
+      "title": "El sistema arranca desde un disco mecánico",
+      "plain": "El equipo arranca y carga programas desde un disco giratorio antiguo ({model}, {size}). Es lo que más lo frena.",
+      "informed": "El sistema está en un HDD ({model}, {size}). Cambiarlo por un SSD hace que todo vaya 3–10 veces más rápido: la mejor inversión posible.",
+      "expert": "Disco de sistema {model} ({size}) es rotacional. IOPS 4K aleatorias ~100 frente a ~50k+ en cualquier SSD.",
+      "action": "Sustitúyelo por un SSD y clona o reinstala."
+    },
+    "storage.system_nvme": {
+      "title": "Disco de sistema NVMe rápido",
+      "plain": "El disco principal ({model}, {size}) es del tipo moderno y rápido.",
+      "informed": "{model} ({size}) por NVMe {link}. El almacenamiento no es tu cuello de botella.",
+      "expert": "{model} {size} NVMe, {link}.",
+      "action": ""
+    },
+    "storage.system_ssd": {
+      "title": "Disco de sistema SSD",
+      "plain": "El disco principal ({model}, {size}) es de estado sólido: bien.",
+      "informed": "{model} ({size}) es un SSD SATA. Vale para todo salvo el trabajo de E/S más pesado.",
+      "expert": "{model} {size}, SSD SATA (techo ~550 MB/s).",
+      "action": ""
+    },
+    "storage.system_emmc": {
+      "title": "Almacenamiento eMMC",
+      "plain": "El almacenamiento principal ({size}) es del tipo lento e integrado de los portátiles baratos.",
+      "informed": "{size} eMMC va soldado, es lento y normalmente no se puede cambiar.",
+      "expert": "eMMC {size}.",
+      "action": ""
+    },
+    "storage.hot_now": {
+      "title": "{model} está caliente",
+      "plain": "Uno de tus discos está a {temp}°C ahora mismo, más de lo que debería.",
+      "informed": "{model} está a {temp}°C. El calor sostenido acorta la vida del SSD y puede causar ralentizaciones o desconexiones.",
+      "expert": "Temperatura compuesta de {model} = {temp}°C (umbral de aviso típico ~80°C).",
+      "action": "Mejora la ventilación o añade una almohadilla térmica."
+    },
+    "storage.smart_failing": {
+      "title": "{model} avisa de que está fallando",
+      "plain": "Uno de tus discos dice que está a punto de fallar. Haz copia de seguridad hoy.",
+      "informed": "El estado SMART de {model} es FAILED. Haz copia ya y sustitúyelo.",
+      "expert": "Autoevaluación SMART de salud general: FAILED.",
+      "action": "Copia de seguridad inmediata y sustituye el disco."
+    },
+    "storage.media_errors": {
+      "title": "{model} tiene {count} sectores dañados",
+      "plain": "Uno de tus discos ha empezado a desarrollar zonas dañadas. Guarda lo importante.",
+      "informed": "{model} reporta {count} sector(es) con errores/realojados/pendientes. Esto suele ir a peor.",
+      "expert": "Errores de medio + realojados + pendientes = {count}. Cualquier valor distinto de cero es señal de sustituir pronto.",
+      "action": "Copia de seguridad y después sustituye el disco."
+    },
+    "storage.unsafe_shutdowns": {
+      "title": "{model} registra muchos apagados bruscos",
+      "plain": "Este disco se ha apagado sin aviso {unsafe} veces, un {pct}% de los encendidos. Es señal de cuelgues, bloqueos o cortes de energía.",
+      "informed": "{unsafe} apagados inseguros de {cycles} ciclos ({pct}%). O el equipo se cuelga al reiniciar, o se le corta la energía.",
+      "expert": "unsafe_shutdowns={unsafe}, power_cycles={cycles} ({pct}%). En NVMe sin DRAM con HMB suele indicar que el controlador no sale de estados APST profundos al apagar; considera nvme_core.default_ps_max_latency_us=0.",
+      "action": "Comprueba si se cuelga al reiniciar; valora desactivar los estados de bajo consumo profundos del NVMe."
+    },
+    "storage.critical_temp_history": {
+      "title": "{model} se ha sobrecalentado en el pasado",
+      "plain": "Este disco ha pasado {minutes} minutos por encima de su temperatura de peligro a lo largo de su vida. Probablemente necesita mejor refrigeración.",
+      "informed": "{minutes} min a temperatura crítica y {warning_minutes} min por encima del aviso. El disco se protege ralentizándose cuando se calienta.",
+      "expert": "critical_comp_time={minutes}m, warning_temp_time={warning_minutes}m. Sostenido por encima de crítico dispara el throttling térmico y acelera el desgaste NAND.",
+      "action": "Añade una almohadilla térmica, limpia los ventiladores o revisa la bahía M.2."
+    },
+    "storage.wear_high": {
+      "title": "{model} tiene un {used_pct}% de desgaste",
+      "plain": "Este disco ha consumido el {used_pct}% de su vida útil estimada.",
+      "informed": "El desgaste del SSD está al {used_pct}%. Pasado el 80%, planifica su sustitución.",
+      "expert": "percentage_used={used_pct}%.",
+      "action": "Planifica la sustitución; mantén las copias al día."
+    },
+    "storage.wear_low": {
+      "title": "A {model} le queda mucha vida",
+      "plain": "El disco principal solo ha usado el {used_pct}% de su vida útil.",
+      "informed": "{used_pct}% de desgaste tras {written} escritos y {hours} horas encendido.",
+      "expert": "percentage_used={used_pct}%, data_units_written={written}, power_on_hours={hours}.",
+      "action": ""
+    },
+    "storage.smart_unavailable": {
+      "title": "No se pudo leer la salud de los discos",
+      "plain": "Innards no pudo comprobar la salud de tus discos. Ejecutarlo con permisos de administrador o instalar smartmontools lo permite.",
+      "informed": "Los datos SMART no estaban disponibles (requiere smartmontools y normalmente permisos elevados).",
+      "expert": "Sin salida de smartctl/nvme-cli para ningún dispositivo.",
+      "action": "Instala smartmontools y vuelve a ejecutar con permisos elevados."
+    },
+    "cpu.old": {
+      "title": "El procesador tiene unos {age} años",
+      "plain": "El {brand} salió hacia {year}. Sigue funcionando, pero los chips nuevos hacen lo mismo en una fracción del tiempo y la energía.",
+      "informed": "{brand} (~{year}). Una CPU de gama media actual es 2–4 veces más rápida por núcleo y tiene 3–4 veces más núcleos.",
+      "expert": "{brand}, lanzamiento ≈{year}, edad ≈{age} años.",
+      "action": ""
+    },
+    "cpu.modern": {
+      "title": "Procesador moderno",
+      "plain": "El {brand} es reciente ({year}) y no te frena.",
+      "informed": "{brand} ({year}).",
+      "expert": "{brand}, lanzamiento ≈{year}.",
+      "action": ""
+    },
+    "cpu.few_cores": {
+      "title": "Solo {cores} núcleos de CPU",
+      "plain": "Este procesador tiene {cores} núcleos. Las tareas pesadas que se reparten entre muchos núcleos irán lentas.",
+      "informed": "{cores} núcleos / {threads} hilos. Bien para uso diario; compilaciones, vídeo y contenedores estarán limitados por CPU.",
+      "expert": "physical_cores={cores}, logical={threads}.",
+      "action": ""
+    },
+    "cpu.hot": {
+      "title": "El procesador está a {temp}°C",
+      "plain": "El procesador está muy caliente ahora mismo. Se ralentiza para protegerse, y todo va más lento.",
+      "informed": "{temp}°C con {throttle_events} eventos de throttling registrados. Polvo, pasta térmica seca o una rejilla tapada son las causas habituales.",
+      "expert": "Temperatura de paquete {temp}°C, throttle_count={throttle_events}.",
+      "action": "Limpia ventiladores y rejillas; valora cambiar la pasta térmica."
+    },
+    "cpu.no_avx2": {
+      "title": "Sin soporte AVX2",
+      "plain": "Este procesador carece de un conjunto de instrucciones que mucho software moderno (sobre todo de IA) da por hecho.",
+      "informed": "{brand} no tiene AVX2. Algunas versiones de software de ML/IA y códecs de vídeo no funcionarán o irán muy lentas.",
+      "expert": "Los flags de cpuinfo no incluyen avx2.",
+      "action": ""
+    },
+    "thermal.fan_high_at_idle": {
+      "title": "El ventilador suena con el equipo casi en reposo",
+      "plain": "El ventilador gira a {rpm} RPM aunque el equipo no hace gran cosa. Algo lo mantiene caliente.",
+      "informed": "Ventilador a {rpm} RPM, CPU a {temp}°C con poca carga. Revisa procesos en segundo plano, polvo o pasta térmica degradada.",
+      "expert": "fan={rpm} rpm, cpu={temp}°C, carga por debajo del 50% de los núcleos.",
+      "action": ""
+    },
+    "battery.worn": {
+      "title": "La batería conserva el {health}% de su capacidad original",
+      "plain": "La batería se ha desgastado: ahora almacena {full_wh} Wh de los {design_wh} Wh originales, tras {cycles} ciclos de carga. Espera poca autonomía.",
+      "informed": "{health}% de salud, {cycles} ciclos. Por debajo de ~60% merece la pena cambiarla si la usas sin enchufar.",
+      "expert": "energy_full={full_wh} Wh / diseño={design_wh} Wh ({health}%), ciclos={cycles}.",
+      "action": "Cambia la batería si te importa la movilidad."
+    },
+    "battery.ok": {
+      "title": "Batería en buen estado ({health}%)",
+      "plain": "La batería conserva el {health}% de su capacidad original tras {cycles} ciclos.",
+      "informed": "{full_wh} Wh de {design_wh} Wh de diseño, {cycles} ciclos.",
+      "expert": "energy_full={full_wh} Wh / diseño={design_wh} Wh, ciclos={cycles}.",
+      "action": ""
+    },
+    "battery.health": { "title": "Batería", "plain": "", "informed": "", "expert": "", "action": "" },
+    "gpu.discrete": {
+      "title": "Gráfica dedicada: {name}",
+      "plain": "Este equipo tiene su propia tarjeta gráfica ({name}), así que juegos, vídeo e IA tienen potencia real.",
+      "informed": "{name} {vram}. GPU dedicada disponible para juegos, codificación e IA local.",
+      "expert": "GPU discreta: {name} {vram}.",
+      "action": ""
+    },
+    "gpu.integrated_only": {
+      "title": "Los gráficos van integrados en el procesador",
+      "plain": "Los gráficos salen del propio procesador ({name}). Bien para vídeo y escritorio; no para juegos actuales ni entrenar IA.",
+      "informed": "{name} integrada. La decodificación de vído por hardware funciona; cómputo GPU y juegos quedan fuera.",
+      "expert": "Solo iGPU: {name}.",
+      "action": ""
+    },
+    "network.wifi_only": {
+      "title": "Solo Wi-Fi, sin puerto de red",
+      "plain": "Este equipo solo se conecta por Wi-Fi. Para transferencias grandes o tareas de servidor, un adaptador por cable ayuda.",
+      "informed": "No se detecta interfaz Ethernet. Un adaptador USB-C o Thunderbolt a Ethernet da gigabit estable.",
+      "expert": "No hay interfaz de clase ethernet.",
+      "action": ""
+    },
+    "network.ethernet_slow": {
+      "title": "El enlace por cable va solo a {mbps} Mbit/s",
+      "plain": "La conexión por cable va más lenta de lo que debería: revisa el cable o el puerto del switch.",
+      "informed": "{iface} negoció {mbps} Mbit/s. Suele ser un cable malo o un switch antiguo.",
+      "expert": "{iface}: velocidad de enlace {mbps} Mbps.",
+      "action": "Prueba otro cable o puerto."
+    },
+    "system.high_load": {
+      "title": "El sistema está muy cargado",
+      "plain": "El equipo está trabajando más de lo que puede asumir ahora mismo.",
+      "informed": "Carga media de 5 minutos {load} en {cpus} CPUs. Algo está saturando el procesador.",
+      "expert": "load5={load}, ncpu={cpus}.",
+      "action": ""
+    },
+    "system.io_wait_high": {
+      "title": "Esperando a los discos el {io_wait}% del tiempo",
+      "plain": "Gran parte del tiempo, el procesador solo espera a que un disco responda.",
+      "informed": "La espera de E/S es del {io_wait}%. Un disco lento u ocupado (a menudo USB) frena todo lo demás.",
+      "expert": "iowait={io_wait}% muestreado en 300 ms.",
+      "action": ""
+    },
+    "system.vm": {
+      "title": "Ejecutándose en una máquina virtual",
+      "plain": "Este es un equipo virtual; los detalles de hardware reflejan lo que el anfitrión le deja ver.",
+      "informed": "VM detectada. Los datos de batería, temperatura y SMART no tienen sentido aquí.",
+      "expert": "El fabricante DMI indica un hipervisor.",
+      "action": ""
+    },
+    "system.uptime_long": {
+      "title": "{days} días encendido",
+      "plain": "El equipo no se ha reiniciado en {days} días. Probablemente hay actualizaciones esperando un reinicio.",
+      "informed": "{days} días de uptime. Las actualizaciones de kernel y firmware necesitan reiniciar.",
+      "expert": "uptime={days}d.",
+      "action": ""
+    },
+    "storage.ufs": {
+      "title": "Almacenamiento flash UFS rápido",
+      "plain": "El almacenamiento integrado ({size}) es del tipo rápido de los móviles, comparable al SSD de un portátil. Suficiente para un servidor pequeño.",
+      "informed": "{model} ({size}) es UFS: velocidad similar a un SSD SATA con buena E/S aleatoria, mucho mejor que eMMC o una tarjeta SD. Va soldado y no se puede cambiar.",
+      "expert": "{model} {size} en un controlador UFS (ufshcd). Secuencial ~500–1000 MB/s, 4K aleatorio en decenas de miles de IOPS. No reemplazable; planifica almacenamiento por USB si se queda corto.",
+      "action": ""
+    },
+    "thermal.no_active_cooling": {
+      "title": "Sin ventilador: las cargas sostenidas irán más lento",
+      "plain": "Este dispositivo no tiene ventilador. Es rápido en ráfagas cortas, pero una tarea que mantenga el procesador ocupado varios minutos hará que se ralentice para no calentarse (ahora está a {temp}°C).",
+      "informed": "Solo refrigeración pasiva. El trabajo de servidor a ráfagas (sincronización, web, consultas pequeñas) va bien; la carga de CPU sostenida (modelos de IA, transcodificación, indexados grandes) se ralentiza en minutos. Una carcasa con ventilador, un disipador o limitar la frecuencia mantienen el rendimiento estable.",
+      "expert": "has_active_cooling=false, cpu={temp}°C. Espera que el gobernador térmico baje la frecuencia de los núcleos grandes un 30–60% con cargas de varios minutos; un ventilador de pinza o fijar el techo de schedutil da un rendimiento predecible.",
+      "action": "Para cargas continuas: carcasa con ventilador/disipador, o baja la frecuencia máxima."
+    },
+    "battery.as_ups": {
+      "title": "La batería integrada hace de SAI",
+      "plain": "Como este dispositivo tiene su propia batería (ahora al {charge}%, salud {health}%), un corte de luz no tumbará un servidor que corra en él.",
+      "informed": "La batería al {charge}% ({health}% de salud) aguanta microcortes y apagones: un SAI gratis para un servidor. Mantenlo enchufado y valora limitar la carga a ~80% si el sistema lo permite.",
+      "expert": "batería presente: carga={charge}% salud={health}%. En la práctica, un SAI integrado. Para uso 24/7, limita la carga (p. ej. charge_control_end_threshold) para reducir el desgaste y el riesgo de hinchazón.",
+      "action": ""
+    },
+    "mobile.soc": {
+      "title": "{soc}: chip de {year} con {cores} núcleos",
+      "plain": "El procesador es un {vendor} {soc} de {year}: {big} núcleos rápidos y {little} eficientes, hasta {ghz} GHz. Tiene {mainline}.",
+      "informed": "{vendor} {soc} ({year}, {nm} nm): {big} núcleos grandes + {little} pequeños hasta {ghz} GHz, gráficos {gpu}. Estado en Linux: {mainline}.",
+      "expert": "{vendor} {soc}, {year}, {nm} nm, {big}+{little} núcleos @ {ghz} GHz, GPU {gpu}. Mainline: {mainline}.",
+      "action": ""
+    },
+    "mobile.mainline_excellent": {
+      "title": "Este móvil puede correr un Linux de verdad",
+      "plain": "El {soc} de este dispositivo es uno de los chips de móvil mejor soportados por el kernel Linux de código abierto. Eso significa que puedes instalarle un Linux completo (postmarketOS) y usarlo como un servidor pequeño, no solo como teléfono.",
+      "informed": "El {soc} tiene soporte excelente en el kernel oficial: pantalla, Wi-Fi, USB, almacenamiento e incluso el módem funcionan en postmarketOS. Es el mejor caso para un servidor de bolsillo: kernel actual, paquetes normales, servicios systemd/OpenRC, sin Android de por medio.",
+      "expert": "{soc}: soporte mainline Excelente (clase de dispositivo \"main\" en postmarketOS). Kernel upstream con USB dwc3, Wi-Fi ath10k, ufshcd, módem qmi. La GPU (freedreno) funciona pero no importa sin pantalla.",
+      "action": "Instala postmarketOS (o Mobian/Ubuntu Touch) para usarlo como servidor."
+    },
+    "mobile.mainline_none": {
+      "title": "No hay un Linux de verdad para este chip",
+      "plain": "El {soc} solo funciona con el software Android del fabricante. Puedes ejecutar apps y algunas herramientas, pero no un sistema operativo de servidor completo.",
+      "informed": "El {soc} no tiene soporte en el kernel Linux oficial: estás limitado al kernel Android del fabricante. Termux y un Android rooteado pueden correr algunos servicios, pero sin sobrevivir a reinicios, sin un init de verdad y con un kernel antiguo.",
+      "expert": "{soc}: soporte mainline None. Solo kernel del fabricante (normalmente 4.x/5.x LTS con parches del OEM). Sin camino a postmarketOS/Mobian; usarlo como servidor implica Termux/chroot sobre Android.",
+      "action": ""
+    },
+    "mobile.rooted": {
+      "title": "Android {android} con root",
+      "plain": "Este móvil está rooteado: tienes control total sobre él, lo que le permite ejecutar servicios en segundo plano, usar todo su almacenamiento y administrarse a distancia.",
+      "informed": "Acceso root en Android {android}: chroot/proot de Linux, pilas de servicios sin Docker, acceso completo al sistema de archivos y un servidor SSH de verdad son posibles. Sigue sin ser un Linux real: el kernel y el init son de Android.",
+      "expert": "su/Magisk/KernelSU presentes en Android {android}. Permite chroot (Linux Deploy, Andronix), bind mounts, iptables y ejecutar como uid 0. Kernel del fabricante; sin systemd; hay que desactivar Doze/optimización de batería para servicios permanentes.",
+      "action": ""
+    },
+    "mobile.not_rooted": {
+      "title": "Android {android}, sin root",
+      "plain": "Este móvil ejecuta Android estándar sin root. Para usarlo como servidor necesitas rootearlo o instalarle un sistema Linux.",
+      "informed": "Android {android} sin root. Termux puede correr algunos servicios en espacio de usuario (SSH, Syncthing, webs pequeñas), pero los límites en segundo plano, la falta de puertos <1024 y la ausencia de chroot lo hacen un mal servidor. El root o una instalación de Linux cambian eso.",
+      "expert": "is_rooted=false en Android {android}. El uso como servidor requiere root (Magisk/KernelSU) o sustituir Android por postmarketOS/Mobian donde el SoC lo permita.",
+      "action": "Desbloquea el bootloader y rootea o instala Linux."
+    }
+  },
+  "recs": {
+    "rec.add_swap": { "title": "Añadir swap (gratis)", "body": "Configura una swap zram comprimida más un swapfile. En Linux son dos paquetes; en Windows y macOS asegúrate de que el archivo de paginación está activado.", "why": "Sin swap, quedarse sin memoria mata programas en vez de ralentizar." },
+    "rec.free_space": { "title": "Liberar el disco del sistema (gratis)", "body": "El disco del sistema está al {used_pct}% con {free} libres. Limpia cachés, descargas viejas y apps que no uses.", "why": "Los SSD se ralentizan y las actualizaciones fallan cuando están casi llenos." },
+    "rec.tmpfs_to_disk": { "title": "Sacar los temporales de la RAM (gratis)", "body": "{tmpfs} de archivos temporales están en memoria. Mueve los archivos de trabajo grandes a una ruta en disco.", "why": "Cada byte en /tmp es memoria que tus programas no pueden usar." },
+    "rec.ssd_replace_failing": { "title": "Sustituir el disco que falla", "body": "{model} ({size}) muestra señales de fallo. Sustitúyelo por un SSD {interface} de {target_gb} GB y restaura desde la copia.", "why": "Un disco que falla acabará llevándose tus datos." },
+    "rec.ssd_replace_hdd": { "title": "Cambiar el disco duro por un SSD", "body": "Cambia el disco mecánico de {size} por un SSD {interface} de {target_gb} GB. Clónalo o reinstala.", "why": "La mejora más perceptible posible: todo abre 3–10 veces más rápido." },
+    "rec.ssd_bigger": { "title": "Pasar a un SSD más grande", "body": "Sustituye {model} ({size}) por un SSD {interface} de {target_gb} GB.", "why": "Has dicho que el almacenamiento te molesta y este disco se queda corto." },
+    "rec.ram_add": { "title": "Ampliar memoria: {have} GB → {target} GB", "body": "Instala módulos {kind} hasta llegar a {target} GB.", "why": "Tus usos necesitan al menos {target} GB para ir con holgura." },
+    "rec.ram_add_check": { "title": "Ampliar memoria: {have} GB → {target} GB (comprueba las ranuras)", "body": "Innards no pudo confirmar si este equipo tiene ranuras de memoria. Consulta el manual de servicio del modelo y después instala módulos {kind} hasta {target} GB.", "why": "Tus usos necesitan al menos {target} GB para ir con holgura." },
+    "rec.ram_soldered": { "title": "La memoria es el techo, y va soldada", "body": "Tienes {have} GB y tus usos piden {target} GB, pero la memoria de este equipo no se puede ampliar.", "why": "Es la razón de más peso para pensar en otro equipo, no en una pieza." },
+    "rec.battery_replace": { "title": "Cambiar la batería", "body": "La salud es del {health}%. Una batería para el {model} suele cambiarse en 10 minutos con un destornillador.", "why": "Dices que lo usas sin enchufar; esta es la forma más barata de recuperar horas." },
+    "rec.thermal_service": { "title": "Limpieza y pasta térmica", "body": "Sopla los ventiladores, cambia la pasta térmica y añade una almohadilla al SSD si está expuesto. La CPU está a {cpu_temp}°C.", "why": "El calor hace que el equipo se ralentice y suene más de lo necesario." },
+    "rec.gpu_laptop_no_slot": { "title": "El trabajo con GPU necesita otro equipo", "body": "Este portátil no tiene GPU dedicada ni puede llevar una. Para juegos o IA, valora un sobremesa, un equipo con GPU discreta o alquilar tiempo de GPU.", "why": "No hay vía de mejora gráfica en este chasis." },
+    "rec.gpu_add": { "title": "Añadir una tarjeta gráfica ({vram} GB)", "body": "Una tarjeta de gama media con {vram} GB de VRAM desbloquea juegos, codificación de vídeo e IA local en este sobremesa.", "why": "Tus usos dependen de la GPU y este equipo tiene ranura." },
+    "rec.machine_replace": { "title": "Planificar un equipo nuevo", "body": "Este equipo de {age} años ({cores_now} núcleos, {ram_now} GB) no alcanza lo que necesitas. Busca al menos {target_cores} núcleos y {target_ram} GB de RAM ({form}).", "why": "Varios de tus usos puntúan mal y las piezas limitantes no se pueden mejorar." },
+    "rec.keep": { "title": "Quédatelo: nada que comprar", "body": "Este equipo cubre bien tus usos. Los arreglos gratuitos de arriba son lo único que merece la pena.", "why": "Gastar dinero aquí no cambiaría tu día a día." },
+    "rec.install_linux": { "title": "Instalar Linux en este móvil (gratis)", "body": "El {soc} del {model} está bien soportado por el kernel Linux oficial. Instala postmarketOS (o Ubuntu Touch / Mobian) para tener un sistema de servidor de verdad: SSH, servicios systemd, contenedores y paquetes normales, con la batería como SAI integrado.", "why": "Android limita los servicios en segundo plano y los reinicios; una instalación de Linux convierte este móvil en un servidor de bolsillo como es debido." },
+    "rec.cooling_case": { "title": "Añadir refrigeración para cargas sostenidas", "body": "El {model} no tiene ventilador y está a {cpu_temp}°C. Un ventilador de pinza, una carcasa con disipador o un pequeño ventilador USB evitan que se ralentice en trabajos largos como indexar o ejecutar modelos de IA.", "why": "Los dispositivos sin ventilador se ralentizan a los pocos minutos de carga continua; un poco de aire mantiene el rendimiento constante." },
+    "rec.usb_ethernet": { "title": "Añadir un adaptador USB a Ethernet", "body": "El {model} solo tiene Wi-Fi. Un adaptador USB-C a Ethernet gigabit da al servidor una dirección estable y transferencias a plena velocidad, y un hub con alimentación puede cargarlo a la vez.", "why": "El Wi-Fi se corta y cambia de punto de acceso; un enlace por cable es lo que hace fiable un servidor siempre encendido." },
+    "rec.phone_not_viable": { "title": "No es una plataforma de servidor viable", "body": "El {model} ({soc}, {ram} GB) no llega: {reason}. Úsalo para tareas ligeras, o elige un dispositivo con 4+ GB y soporte Linux oficial (un móvil con Snapdragon 845, una Raspberry Pi 4/5 o una placa Rockchip RK3588).", "why": "Esto es un techo, no una pieza que se pueda cambiar." }
+  },
+  "advisor": {
+    "uses": "¿Para qué usas este equipo?",
+    "pains": "¿Qué te molesta de él?",
+    "budget": "¿Cuánto estarías dispuesto a gastar?",
+    "horizon": "¿Cuándo?",
+    "portability": "¿Necesitas usarlo fuera de un escritorio?",
+    "options": {
+      "slow": "Va lento", "out_of_memory": "Se queda sin memoria", "storage": "Falta espacio", "battery": "La batería no dura", "heat_noise": "Se calienta o hace ruido", "crashes": "Se cuelga o se bloquea", "none": "Nada en particular",
+      "under_100": "Menos de 100 $", "under_300": "Menos de 300 $", "under_800": "Menos de 800 $", "under_1500": "Menos de 1.500 $", "no_limit": "Lo que haga falta",
+      "now": "Ahora", "six_months": "En los próximos 6 meses", "year": "Dentro de un año",
+      "yes": "Sí", "no": "No"
+    }
+  }
+}

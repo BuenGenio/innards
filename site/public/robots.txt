@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+# Checkout, license and key endpoints are not pages.
+Disallow: /api/
+Disallow: /buy
+# /thanks and /404 carry noindex and are left crawlable so the directive is seen.
+
+Sitemap: https://innards.app/sitemap.xml

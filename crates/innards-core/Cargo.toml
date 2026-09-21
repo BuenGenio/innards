@@ -1,0 +1,22 @@
+[package]
+name = "innards-core"
+description = "UI-agnostic machine analysis engine: hardware probes, findings, capability scoring, upgrade advisor, and multilingual report rendering."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+chrono.workspace = true
+sysinfo = "0.39"
+
+# starship-battery has no Android backend (compile_error!); probe/android.rs
+# reads /sys/class/power_supply directly instead.
+[target.'cfg(not(target_os = "android"))'.dependencies]
+starship-battery = "0.11"
+
+[dev-dependencies]

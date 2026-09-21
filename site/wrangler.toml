@@ -1,0 +1,19 @@
+name = "innards"
+pages_build_output_dir = "public"
+compatibility_date = "2026-09-01"
+
+# Non-secret config for the /api/* Pages Functions (billing/src/index.ts).
+# Secrets: `wrangler pages secret put STRIPE_SECRET_KEY|STRIPE_WEBHOOK_SECRET|LICENSE_SIGNING_KEY --project-name innards`
+[vars]
+SITE_URL = "https://innards.app"
+PRICE_SUPPORTER = ""
+PRICE_PRO = ""
+PRICE_TEAM = ""
+SUPPORTER_MIN_CENTS = "500"
+SUPPORTER_PRESET_CENTS = "900"
+TEAM_MIN_MACHINES = "5"
+GRACE_DAYS = "3"
+
+[[kv_namespaces]]
+binding = "LICENSES"
+id = "71d90902f3e14ff6b72f5a27fd89f59e"

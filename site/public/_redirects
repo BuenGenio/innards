@@ -1,0 +1,3 @@
+# Checkout is not live yet: send /buy?tier=... to the pricing page for now.
+/buy /pricing 302
+/buy/*  /pricing  302

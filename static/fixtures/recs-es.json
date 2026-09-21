@@ -1,0 +1,59 @@
+[
+  {
+    "id": "rec.ram_soldered",
+    "kind": "Sin compra",
+    "impact": "Mejora grande",
+    "cost": "Gratis",
+    "over_budget": false,
+    "title": "La memoria es el techo, y va soldada",
+    "body": "Tienes 16 GB y tus usos piden 32 GB, pero la memoria de este equipo no se puede ampliar.",
+    "why": "Es la razón de más peso para pensar en otro equipo, no en una pieza.",
+    "helps": [
+      "Desarrollo web y de apps",
+      "Docker / contenedores",
+      "Servidor doméstico / autoalojamiento",
+      "Ejecutar modelos de IA en local"
+    ],
+    "shopping_query": null
+  },
+  {
+    "id": "rec.gpu_laptop_no_slot",
+    "kind": "Sin compra",
+    "impact": "Mejora grande",
+    "cost": "Gratis",
+    "over_budget": false,
+    "title": "El trabajo con GPU necesita otro equipo",
+    "body": "Este portátil no tiene GPU dedicada ni puede llevar una. Para juegos o IA, valora un sobremesa, un equipo con GPU discreta o alquilar tiempo de GPU.",
+    "why": "No hay vía de mejora gráfica en este chasis.",
+    "helps": [
+      "Ejecutar modelos de IA en local"
+    ],
+    "shopping_query": null
+  },
+  {
+    "id": "rec.battery_replace",
+    "kind": "Mantenimiento",
+    "impact": "Mejora grande",
+    "cost": "$40–$120",
+    "over_budget": false,
+    "title": "Cambiar la batería",
+    "body": "La salud es del 45%. Una batería para el ThinkPad X1 Carbon 5th suele cambiarse en 10 minutos con un destornillador.",
+    "why": "Dices que lo usas sin enchufar; esta es la forma más barata de recuperar horas.",
+    "helps": [],
+    "shopping_query": "ThinkPad X1 Carbon 5th replacement battery"
+  },
+  {
+    "id": "rec.machine_replace",
+    "kind": "Sustituir",
+    "impact": "Mejora grande",
+    "cost": "$1200–$2500",
+    "over_budget": true,
+    "title": "Planificar un equipo nuevo",
+    "body": "Este equipo de 9 años (2 núcleos, 16 GB) no alcanza lo que necesitas. Busca al menos 6 núcleos y 32 GB de RAM (laptop).",
+    "why": "Varios de tus usos puntúan mal y las piezas limitantes no se pueden mejorar.",
+    "helps": [
+      "Ejecutar modelos de IA en local"
+    ],
+    "shopping_query": "laptop 6 cores 32GB RAM dedicated GPU"
+  }
+]

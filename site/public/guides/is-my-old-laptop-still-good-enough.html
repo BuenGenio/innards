@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Is my old laptop still good enough? — Innards</title>
+  <meta name="description" content="Judge an ageing laptop by what you actually do with it: which workloads it still handles, which parts are the ceiling, and what is worth fixing for free.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://innards.app/guides/is-my-old-laptop-still-good-enough">
+  <meta name="author" content="Eugene Trotsan">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+  <link rel="stylesheet" href="../style.css">
+  <script src="../site.js" defer></script>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Innards">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Is my old laptop still good enough? — Innards">
+  <meta property="og:description" content="Judge an ageing laptop by what you actually do with it: which workloads it still handles, which parts are the ceiling, and what is worth fixing for free.">
+  <meta property="og:url" content="https://innards.app/guides/is-my-old-laptop-still-good-enough">
+  <meta property="og:image" content="https://innards.app/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+  <meta property="article:published_time" content="2026-09-21">
+  <meta property="article:modified_time" content="2026-09-21">
+  <meta property="article:author" content="https://github.com/buengenio">
+  <meta property="article:section" content="Guides">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Is my old laptop still good enough? — Innards">
+  <meta name="twitter:description" content="Judge an ageing laptop by what you actually do with it: which workloads it still handles, which parts are the ceiling, and what is worth fixing for free.">
+  <meta name="twitter:image" content="https://innards.app/og.png">
+  <meta name="twitter:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Person",
+   "@id": "https://innards.app/#eugene",
+   "name": "Eugene Trotsan",
+   "url": "https://github.com/buengenio",
+   "email": "mailto:eugene.trotsan@gmail.com",
+   "sameAs": [
+    "https://github.com/buengenio"
+   ]
+  },
+  {
+   "@type": "Article",
+   "@id": "https://innards.app/guides/is-my-old-laptop-still-good-enough#article",
+   "headline": "Is my old laptop still good enough?",
+   "description": "Judge an ageing laptop by what you actually do with it: which workloads it still handles, which parts are the ceiling, and what is worth fixing for free.",
+   "url": "https://innards.app/guides/is-my-old-laptop-still-good-enough",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://innards.app/guides/is-my-old-laptop-still-good-enough"
+   },
+   "datePublished": "2026-09-21",
+   "dateModified": "2026-09-21",
+   "author": {
+    "@id": "https://innards.app/#eugene"
+   },
+   "publisher": {
+    "@id": "https://innards.app/#eugene"
+   },
+   "image": "https://innards.app/og.png",
+   "inLanguage": "en",
+   "wordCount": 1026,
+   "isPartOf": {
+    "@id": "https://innards.app/#website"
+   },
+   "about": {
+    "@id": "https://innards.app/#app"
+   },
+   "articleSection": "Guides"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Innards",
+     "item": "https://innards.app/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Guides",
+     "item": "https://innards.app/guides/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Is my old laptop still good enough?",
+     "item": "https://innards.app/guides/is-my-old-laptop-still-good-enough"
+    }
+   ]
+  }
+ ]
+}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Innards home"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/download">Download</a><a href="/pricing">Pricing</a><a href="/guides/" aria-current="page">Guides</a><a href="/privacy">Privacy</a><a href="/press">Press</a>
+      <a href="https://github.com/buengenio/innards" rel="noopener">GitHub</a>
+      <a class="btn primary" href="/download">Get Innards</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<article class="article">
+  <div class="page-head">
+    <div class="wrap narrow">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Innards</a></li><li><a href="/guides/">Guides</a></li><li aria-current="page">Is my old laptop still good enough?</li></ol></nav>
+      <span class="eyebrow">Guide</span>
+      <h1>Is my old laptop still good enough?</h1>
+      <p class="lead">"Good enough" is not a property of a laptop. It is a property of a laptop and a job. A 2017 ultrabook is an excellent web machine and a hopeless video workstation at the same time. The useful question is: good enough for what?</p>
+      <p class="article-meta">By <a href="/press#contact">Eugene Trotsan</a> · <time datetime="2026-09-21">21 September 2026</time> · 5 min read</p>
+    </div>
+  </div>
+  <div class="section tight">
+    <div class="wrap narrow prose">
+<h2>Stop asking about the laptop. Ask about the work.</h2>
+<p>Benchmarks answer "how fast is it", which is rarely what you want to know. What you want to know is whether the next two years of what you do will feel fine on this machine, and the honest answer is different for each thing you do.</p>
+<p>Innards scores a machine across twelve workloads, and each one is limited by a different part. That framing works just as well on paper. Go through the list and mark which ones you actually do:</p>
+<table class="compare"><caption class="visually-hidden">Workloads and the part that usually limits them</caption>
+<thead><tr><th scope="col">Workload</th><th scope="col">What usually limits an old laptop</th></tr></thead>
+<tbody>
+<tr><th scope="row">Everyday use (web, office, media)</th><td>A spinning hard drive, or less than 8 GB of memory. Almost any laptop with an SSD passes.</td></tr>
+<tr><th scope="row">Web &amp; app development</th><td>Memory (editors, a browser with dev tools and a local server add up) and core count.</td></tr>
+<tr><th scope="row">Docker / container stacks</th><td>Memory first, then cores. Each container is a process tree that wants its own share.</td></tr>
+<tr><th scope="row">Home server / self-hosting</th><td>Memory and a wired network port. Speed matters less than staying up.</td></tr>
+<tr><th scope="row">Photo editing</th><td>Memory and graphics. A 24-megapixel raw file expands to hundreds of megabytes in an editor.</td></tr>
+<tr><th scope="row">Large compiles (C++, Rust, kernels)</th><td>Cores. Two cores compile at roughly a quarter of the speed of eight.</td></tr>
+<tr><th scope="row">Video editing</th><td>Cores, memory and a dedicated GPU, all at once.</td></tr>
+<tr><th scope="row">Running AI models locally</th><td>A dedicated GPU with enough memory, or failing that a lot of RAM and a CPU with AVX2.</td></tr>
+<tr><th scope="row">Modern gaming, ML training / GPU compute</th><td>A dedicated GPU. Without one these are simply not on the table.</td></tr>
+</tbody></table>
+<p>The pattern is that the first four rows are about memory, storage and stability, all of which can be cheap to fix, while the last four are about parts a laptop usually cannot gain. That is why an old machine can be "excellent" and "not suitable" in the same report without contradiction.</p>
+
+<h2>A real example: a 2017 ThinkPad</h2>
+<p>The machine Innards was written on is a 2017 ThinkPad X1 Carbon: Intel Core i7-7500U with two cores, 16 GB of soldered LPDDR3, a 2 TB NVMe drive that was fitted later, integrated graphics, and a battery at 45% of its original capacity. Here is how its report grades it:</p>
+<ul>
+<li><strong>Excellent:</strong> everyday use (96/100).</li>
+<li><strong>Good:</strong> web and app development (76), home server (75). Limits named: too few CPU cores, not enough memory.</li>
+<li><strong>Workable:</strong> Docker and container stacks (54).</li>
+<li><strong>Struggles:</strong> photo editing (28), running AI models locally (28).</li>
+<li><strong>Not suitable:</strong> large compiles (24), modern gaming (23), video editing (21), ML training (4).</li>
+</ul>
+<p>Nine years old, and it is an excellent everyday laptop and a decent home server. It is not going to train a model, and no amount of money spent on it will change that, because the two limits that matter for the bottom half of the list, soldered memory and no GPU, are not parts you can swap.</p>
+
+<h2>Three questions, in order</h2>
+<h3>1. Is something slowing it down that costs nothing to fix?</h3>
+<p>Before judging the hardware, make sure you are judging the hardware. The most common things that make an old laptop feel older than it is:</p>
+<ul>
+<li><strong>No swap.</strong> When memory runs out with no swap configured, Linux does not slow down gracefully; it kills a program. See <a href="/guides/no-swap-what-happens-when-memory-runs-out">what happens when memory runs out</a>.</li>
+<li><strong>A nearly full system drive.</strong> SSDs get slower and updates start failing past about 90% used. Free 10–15% and the machine often feels new again.</li>
+<li><strong>Dust and dried thermal paste.</strong> A processor that throttles at 95°C is slower than its specification says. A loud fan at idle is the tell.</li>
+<li><strong>Something in the background.</strong> A 5-minute load average of 8 on a 4-thread machine is not an old CPU; it is a process saturating it.</li>
+</ul>
+<h3>2. Which cheap part would change the grade?</h3>
+<p>Some parts move a grade by a lot and cost less than a new charger:</p>
+<ul>
+<li><strong>A spinning hard drive to an SSD</strong> is the single biggest upgrade that exists: everything opens 3–10× faster.</li>
+<li><strong>Memory</strong>, if the laptop has slots. Going from 8 to 16 GB turns "struggles" into "good" for web development and containers. Whether it has slots is the subject of <a href="/guides/upgrade-ram-or-buy-new-laptop">should I upgrade RAM or buy a new laptop</a>.</li>
+<li><strong>A battery</strong>, if you use it unplugged. Usually a ten-minute job. See <a href="/guides/laptop-battery-health-when-to-replace">when to replace a laptop battery</a>.</li>
+</ul>
+<h3>3. Is the ceiling a part, or the chassis?</h3>
+<p>Three findings mean the answer to "can I upgrade it?" is no, and honest advice should say so plainly:</p>
+<ul>
+<li><strong>Soldered memory.</strong> Whatever you have now is the ceiling.</li>
+<li><strong>No dedicated GPU and no way to add one.</strong> Laptops rarely have a slot; external GPU enclosures exist for some Thunderbolt machines but cost more than a used desktop.</li>
+<li><strong>No AVX2.</strong> Processors from before 2013, and many budget Pentium and Celeron chips since, lack an instruction set that a lot of modern software, especially AI tools, expects.</li>
+</ul>
+<p>If the workloads you marked are blocked by one of these, the machine is not "bad"; it is done growing. Keep it for what it is excellent at, and let the next machine be chosen for the rest.</p>
+
+<h2>Where old laptops go next</h2>
+<p>A machine that is "excellent" at everyday use and "good" as a home server has years of work left, especially now that Windows 10 support has ended and many of these laptops will not take Windows 11. A modern Linux desktop runs comfortably on an eight-year-old ultrabook with an SSD and 8 GB of memory, keeps getting security updates, and makes a quiet, low-power home server with a built-in battery for a UPS.</p>
+<p>The one thing to be honest about is the battery and the thermals: a laptop used as a server should be kept plugged in with its charge capped around 80% if the firmware allows it, and dusted once in a while.</p>
+
+<aside class="tells" aria-labelledby="tells-h">
+  <p class="eyebrow" id="tells-h">What Innards would tell you</p>
+<div class="tells-item warning"><h3>Processor is about 9 years old <span class="finding-cat">Processor</span></h3>
+<p><b>Informed:</b> Intel Core i7-7500U (~2017). A current mid-range CPU is roughly 2–4× faster per core and has 3–4× the cores.</p></div>
+<div class="tells-item info"><h3>Only 2 CPU cores <span class="finding-cat">Processor</span></h3>
+<p><b>Informed:</b> 2 cores / 4 threads. Fine for everyday use; compiles, video and container stacks will be CPU-bound.</p></div>
+<div class="tells-item good"><h3>Keep it — nothing to buy <span class="finding-cat">Upgrade advisor</span></h3>
+<p>Your workloads are well served by this machine. The free fixes above are all that's worth doing. <em>Why: spending money here wouldn't change your day-to-day.</em></p></div>
+  <p class="tells-note">Wording is taken verbatim from the app's rule catalog (<code>i18n/en.json</code>), filled in with values from the report of a real 2017 ThinkPad X1 Carbon.</p>
+  <p class="tells-cta"><a class="btn primary" href="/download">Download Innards</a><span class="small faint">Free, open source, nothing leaves the machine.</span></p>
+</aside>
+
+<h2>Related guides</h2>
+<ul class="related"><li><a href="/guides/upgrade-ram-or-buy-new-laptop">Should I upgrade RAM or buy a new laptop?</a><span class="small faint">How to find out whether your laptop&#x27;s memory is soldered, how much RAM each kind of work needs, and when soldered memory is the reason to change machine.</span></li><li><a href="/guides/no-swap-what-happens-when-memory-runs-out">No swap: what happens when memory runs out</a><span class="small faint">Why a Linux machine with no swap freezes and then kills programs instead of slowing down, and how zram plus a swapfile fix it in ten minutes.</span></li><li><a href="/guides/laptop-battery-health-when-to-replace">Laptop battery health: when to replace it</a><span class="small faint">How battery health is calculated, how to read it on Linux, Windows and macOS, what cycle counts mean, and the point at which a replacement is worth it.</span></li></ul>
+    </div>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="/"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+      <p>Look inside your machine. A free, open-source hardware report for Linux, macOS and Windows that explains itself in plain language.</p>
+    </div>
+    <div>
+      <h2>Product</h2>
+      <ul>
+        <li><a href="/download">Download</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="https://github.com/buengenio/innards/releases/latest" rel="noopener">Releases</a></li>
+        <li><a href="https://github.com/buengenio/innards" rel="noopener">Source on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Resources</h2>
+      <ul>
+        <li><a href="/guides/">Guides</a></li>
+        <li><a href="https://github.com/buengenio/innards/tree/main/docs" rel="noopener">Documentation</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/docs/ARCHITECTURE.md" rel="noopener">Architecture</a></li>
+        <li><a href="https://github.com/buengenio/innards/issues" rel="noopener">Report an issue</a></li>
+        <li><a href="/press">Press kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Company</h2>
+      <ul>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/LICENSE" rel="noopener">MIT license</a></li>
+        <li><a href="mailto:eugene.trotsan@gmail.com">Contact</a></li>
+      </ul>
+    </div>
+    <div class="colophon">
+      <span>© 2026 Eugene Trotsan. Innards is MIT licensed.</span>
+      <span>This site sets no cookies and makes no third-party requests.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

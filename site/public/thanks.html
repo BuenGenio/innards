@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Your license key — Innards</title>
+  <meta name="description" content="Your Innards license key, shown after checkout. Paste it into Settings → License in the app." />
+  <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Innards" />
+  <meta property="og:title" content="Your license key — Innards" />
+  <meta property="og:description" content="Your Innards license key, shown after checkout." />
+  <meta property="og:image" content="https://innards.app/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>
+    :root { --paper:#f7f5f1; --paper-2:#fff; --paper-3:#efece6; --ink:#1d1b18; --ink-2:#57534c; --ink-3:#8a857c; --line:#e4e0d8; --accent:#0f766e; --accent-ink:#fff; --accent-soft:#d9efec; --crit:#b42318; --font:-apple-system,BlinkMacSystemFont,"Segoe UI Variable","Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif; --mono:"SF Mono","Cascadia Code","JetBrains Mono",Menlo,Consolas,monospace; }
+    @media (prefers-color-scheme: dark) { :root { --paper:#161513; --paper-2:#1f1d1a; --paper-3:#26241f; --ink:#ece8e1; --ink-2:#b3ada3; --ink-3:#7d776d; --line:#2e2b26; --accent:#2dd4bf; --accent-ink:#062b28; --accent-soft:#143c39; --crit:#f97066; } }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.5 var(--font); -webkit-font-smoothing: antialiased; }
+    main { max-width: 640px; margin: 8vh auto; padding: 0 20px; }
+    .card { background: var(--paper-2); border: 1px solid var(--line); border-radius: 14px; padding: 28px; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 6px 20px rgba(0,0,0,.05); display: grid; gap: 14px; }
+    h1 { margin: 0; font-size: 24px; letter-spacing: -.01em; }
+    p { margin: 0; color: var(--ink-2); }
+    .key { font: 12.5px/1.5 var(--mono); word-break: break-all; background: var(--paper-3); padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); user-select: all; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    button, a.btn { font: inherit; padding: 9px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper-2); color: var(--ink); cursor: pointer; text-decoration: none; }
+    button.primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; font-weight: 600; }
+    ol { margin: 0; padding-left: 20px; color: var(--ink-2); }
+    .pill { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; background: var(--accent-soft); color: var(--accent); }
+    .err { color: var(--crit); }
+    .brand { display: flex; align-items: center; gap: 9px; font-weight: 700; margin-bottom: 18px; }
+    .brand svg { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="brand" href="/" aria-label="Innards home">
+      <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Innards
+    </a>
+    <div class="card" id="card">
+      <h1 id="title">Thank you.</h1>
+      <p id="lead">Fetching your license key…</p>
+      <div id="keybox" hidden>
+        <div class="row"><span class="pill" id="tier"></span><span id="meta" style="color:var(--ink-3);font-size:13px"></span></div>
+        <div class="key" id="key" style="margin-top:10px"></div>
+        <div class="row" style="margin-top:12px">
+          <button class="primary" id="copy">Copy key</button>
+          <a class="btn" href="/download">Download Innards</a>
+        </div>
+        <ol style="margin-top:14px">
+          <li>Open Innards → <strong>Settings</strong> → <strong>License</strong>.</li>
+          <li>Paste the key and press <strong>Activate</strong>.</li>
+          <li>Bookmark this page: the key can be fetched again from this exact URL. Your Stripe receipt goes to <span id="email"></span>.</li>
+        </ol>
+      </div>
+      <p class="err" id="err" hidden></p>
+    </div>
+  </main>
+  <script>
+    (async () => {
+      const q = new URLSearchParams(location.search);
+      const sid = q.get("session_id");
+      const lead = document.getElementById("lead"), err = document.getElementById("err");
+      if (!sid) { lead.textContent = "No checkout session found."; return; }
+      try {
+        const r = await fetch(`/api/key?session_id=${encodeURIComponent(sid)}`);
+        const d = await r.json();
+        if (!r.ok) throw new Error(d.error?.message || "Could not fetch key");
+        lead.textContent = "Here is your license key.";
+        document.getElementById("tier").textContent = d.tier;
+        document.getElementById("meta").textContent = d.exp ? `valid until ${d.exp} · renews automatically in the app` : "never expires";
+        document.getElementById("key").textContent = d.key;
+        document.getElementById("email").textContent = d.email || "your email";
+        document.getElementById("keybox").hidden = false;
+        document.getElementById("copy").onclick = async (e) => { await navigator.clipboard.writeText(d.key); e.target.textContent = "Copied ✓"; };
+      } catch (e) {
+        lead.textContent = "Payment received, but the key isn't ready yet.";
+        err.textContent = `${e.message}. Reload this page in a minute; if it persists, email eugene.trotsan@gmail.com with your receipt.`;
+        err.hidden = false;
+      }
+    })();
+  </script>
+</body>
+</html>

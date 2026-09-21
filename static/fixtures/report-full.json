@@ -1,0 +1,664 @@
+{
+  "capabilities": [
+    {
+      "grade": "great",
+      "limits": [],
+      "score": 96,
+      "workload": "everyday"
+    },
+    {
+      "grade": "good",
+      "limits": [
+        "limit.cores",
+        "limit.ram"
+      ],
+      "score": 76,
+      "workload": "web_dev"
+    },
+    {
+      "grade": "ok",
+      "limits": [
+        "limit.cores",
+        "limit.ram"
+      ],
+      "score": 54,
+      "workload": "containers"
+    },
+    {
+      "grade": "good",
+      "limits": [
+        "limit.ram"
+      ],
+      "score": 75,
+      "workload": "home_server"
+    },
+    {
+      "grade": "great",
+      "limits": [
+        "limit.cores"
+      ],
+      "score": 88,
+      "workload": "portable_server"
+    },
+    {
+      "grade": "poor",
+      "limits": [
+        "limit.ram",
+        "limit.igpu"
+      ],
+      "score": 28,
+      "workload": "photo_editing"
+    },
+    {
+      "grade": "unsuitable",
+      "limits": [
+        "limit.cores",
+        "limit.ram"
+      ],
+      "score": 24,
+      "workload": "heavy_compile"
+    },
+    {
+      "grade": "unsuitable",
+      "limits": [
+        "limit.cores",
+        "limit.ram",
+        "limit.igpu"
+      ],
+      "score": 21,
+      "workload": "video_editing"
+    },
+    {
+      "grade": "poor",
+      "limits": [
+        "limit.no_gpu"
+      ],
+      "score": 28,
+      "workload": "local_llm"
+    },
+    {
+      "grade": "good",
+      "limits": [
+        "limit.cores"
+      ],
+      "score": 81,
+      "workload": "edge_ai"
+    },
+    {
+      "grade": "unsuitable",
+      "limits": [
+        "limit.cores",
+        "limit.no_gpu"
+      ],
+      "score": 23,
+      "workload": "gaming"
+    },
+    {
+      "grade": "unsuitable",
+      "limits": [
+        "limit.no_gpu"
+      ],
+      "score": 4,
+      "workload": "ml_training"
+    }
+  ],
+  "findings": [
+    {
+      "category": "storage",
+      "evidence": [
+        "/dev/sdc1 ntfs3 826 GiB/830 GiB used"
+      ],
+      "id": "storage.fs_nearly_full",
+      "params": {
+        "free": "3.8 GiB",
+        "mount": "/mnt/sdc1",
+        "total": "830 GiB",
+        "used_pct": 99.5
+      },
+      "severity": "critical"
+    },
+    {
+      "category": "storage",
+      "evidence": [
+        "/dev/sda4 ext4 598 GiB/661 GiB used"
+      ],
+      "id": "storage.fs_nearly_full",
+      "params": {
+        "free": "62.9 GiB",
+        "mount": "/media/buengenio/sda4",
+        "total": "661 GiB",
+        "used_pct": 90.5
+      },
+      "severity": "warning"
+    },
+    {
+      "category": "cpu",
+      "evidence": [],
+      "id": "cpu.old",
+      "params": {
+        "age": 9,
+        "brand": "Intel Core i7-7500U",
+        "year": 2017
+      },
+      "severity": "warning"
+    },
+    {
+      "category": "battery",
+      "evidence": [
+        "energy_full=25.9 Wh design=57.0 Wh cycles=Some(1729)"
+      ],
+      "id": "battery.worn",
+      "params": {
+        "cycles": 1729,
+        "design_wh": 57.0,
+        "full_wh": 25.9,
+        "health": 45.3
+      },
+      "severity": "warning"
+    },
+    {
+      "category": "system",
+      "evidence": [],
+      "id": "system.high_load",
+      "params": {
+        "cpus": 4.0,
+        "load": 13.6
+      },
+      "severity": "warning"
+    },
+    {
+      "category": "system",
+      "evidence": [],
+      "id": "system.io_wait_high",
+      "params": {
+        "io_wait": 34.7
+      },
+      "severity": "warning"
+    },
+    {
+      "category": "memory",
+      "evidence": [],
+      "id": "memory.soldered",
+      "params": {
+        "kind": "LPDDR3",
+        "total": 16
+      },
+      "severity": "info"
+    },
+    {
+      "category": "storage",
+      "evidence": [],
+      "id": "storage.smart_unavailable",
+      "params": {},
+      "severity": "info"
+    },
+    {
+      "category": "cpu",
+      "evidence": [],
+      "id": "cpu.few_cores",
+      "params": {
+        "cores": 2,
+        "threads": 4
+      },
+      "severity": "info"
+    },
+    {
+      "category": "gpu",
+      "evidence": [],
+      "id": "gpu.integrated_only",
+      "params": {
+        "name": "HD Graphics 620"
+      },
+      "severity": "info"
+    },
+    {
+      "category": "memory",
+      "evidence": [
+        "swap_total=12.0 GiB, used=6.4 GiB"
+      ],
+      "id": "memory.swap_ok",
+      "params": {
+        "backends": "8.0 GiB (File, prio 5), 4.0 GiB (Zram, prio 100)",
+        "swap": "12.0 GiB"
+      },
+      "severity": "good"
+    },
+    {
+      "category": "storage",
+      "evidence": [],
+      "id": "storage.system_nvme",
+      "params": {
+        "link": "PCIe 8.0 GT/s x4",
+        "model": "KINGSTON SNV2S2000G",
+        "size": "1.8 TiB"
+      },
+      "severity": "good"
+    }
+  ],
+  "snapshot": {
+    "battery": {
+      "charge_pct": 97.99999237060547,
+      "cycles": 1729,
+      "design_wh": 57.02000045776367,
+      "full_wh": 25.850000381469727,
+      "health_pct": 45.3349723815918,
+      "on_ac": true,
+      "present": true
+    },
+    "cpu": {
+      "base_mhz": 2700,
+      "big_cores": null,
+      "brand": "Intel Core i7-7500U",
+      "current_mhz": 2929,
+      "flags": [
+        "vmx",
+        "sse4_2",
+        "aes",
+        "avx",
+        "avx2"
+      ],
+      "governor": "powersave",
+      "launch_year": 2017,
+      "little_cores": null,
+      "logical_cpus": 4,
+      "max_mhz": 3500,
+      "physical_cores": 2,
+      "throttle_events": 373239,
+      "vendor": "GenuineIntel"
+    },
+    "filesystems": [
+      {
+        "available_bytes": 493298376704,
+        "device": "/dev/nvme0n1p5",
+        "fs_type": "ext4",
+        "is_removable": false,
+        "is_root": true,
+        "mount_point": "/",
+        "total_bytes": 1183705350144
+      },
+      {
+        "available_bytes": 108899860480,
+        "device": "/dev/sdc2",
+        "fs_type": "exfat",
+        "is_removable": true,
+        "is_root": false,
+        "mount_point": "/media/buengenio/22",
+        "total_bytes": 108909297664
+      },
+      {
+        "available_bytes": 2408136089600,
+        "device": "/dev/sde1",
+        "fs_type": "ext4",
+        "is_removable": true,
+        "is_root": false,
+        "mount_point": "/media/buengenio/FUCKING_BIG",
+        "total_bytes": 17927505408000
+      },
+      {
+        "available_bytes": 30821371904,
+        "device": "/dev/sda2",
+        "fs_type": "ext4",
+        "is_removable": true,
+        "is_root": false,
+        "mount_point": "/media/buengenio/Stuff",
+        "total_bytes": 268211130368
+      },
+      {
+        "available_bytes": 709425496064,
+        "device": "/dev/sdd1",
+        "fs_type": "vfat",
+        "is_removable": true,
+        "is_root": false,
+        "mount_point": "/media/buengenio/VERBATIM HD",
+        "total_bytes": 999955464192
+      },
+      {
+        "available_bytes": 67501719552,
+        "device": "/dev/sda4",
+        "fs_type": "ext4",
+        "is_removable": true,
+        "is_root": false,
+        "mount_point": "/media/buengenio/sda4",
+        "total_bytes": 710027395072
+      },
+      {
+        "available_bytes": 491087605760,
+        "device": "/dev/sdb1",
+        "fs_type": "ext4",
+        "is_removable": true,
+        "is_root": false,
+        "mount_point": "/mnt/bd500",
+        "total_bytes": 491106508800
+      },
+      {
+        "available_bytes": 4117270528,
+        "device": "/dev/sdc1",
+        "fs_type": "ntfs3",
+        "is_removable": true,
+        "is_root": false,
+        "mount_point": "/mnt/sdc1",
+        "total_bytes": 891288547328
+      },
+      {
+        "available_bytes": 493298376704,
+        "device": "/dev/nvme0n1p5",
+        "fs_type": "ext4",
+        "is_removable": false,
+        "is_root": false,
+        "mount_point": "/var/snap/firefox/common/host-hunspell",
+        "total_bytes": 1183705350144
+      }
+    ],
+    "gpus": [
+      {
+        "driver": "i915",
+        "is_discrete": false,
+        "name": "HD Graphics 620",
+        "vendor": "Intel",
+        "vram_bytes": null
+      }
+    ],
+    "load": {
+      "io_wait_pct": 34.74576187133789,
+      "load_1": 15.35,
+      "load_15": 13.75,
+      "load_5": 13.55,
+      "top_memory": [
+        {
+          "cpu_pct": 0.0,
+          "name": "ThreadPoolForeg",
+          "rss_bytes": 549351424
+        },
+        {
+          "cpu_pct": 0.0,
+          "name": "ThreadPoolServi",
+          "rss_bytes": 549351424
+        },
+        {
+          "cpu_pct": 10.322580337524414,
+          "name": "cursor",
+          "rss_bytes": 549351424
+        },
+        {
+          "cpu_pct": 0.0,
+          "name": "ThreadPoolSingl",
+          "rss_bytes": 549351424
+        },
+        {
+          "cpu_pct": 0.0,
+          "name": "Chrome_ChildIOT",
+          "rss_bytes": 549351424
+        },
+        {
+          "cpu_pct": 0.0,
+          "name": "Compositor",
+          "rss_bytes": 549351424
+        },
+        {
+          "cpu_pct": 0.0,
+          "name": "PerfettoTrace",
+          "rss_bytes": 549351424
+        },
+        {
+          "cpu_pct": 0.0,
+          "name": "ThreadPoolForeg",
+          "rss_bytes": 549351424
+        },
+        {
+          "cpu_pct": 0.0,
+          "name": "ThreadPoolForeg",
+          "rss_bytes": 549351424
+        },
+        {
+          "cpu_pct": 0.0,
+          "name": "ThreadPoolForeg",
+          "rss_bytes": 549351424
+        }
+      ]
+    },
+    "memory": {
+      "available_bytes": 7333085184,
+      "kind": "LPDDR3",
+      "modules": [
+        {
+          "kind": "LPDDR3",
+          "size_bytes": 8589934592,
+          "slot": "Row Of Chips",
+          "speed_mts": 1867
+        },
+        {
+          "kind": "LPDDR3",
+          "size_bytes": 8589934592,
+          "slot": "Row Of Chips",
+          "speed_mts": 1867
+        }
+      ],
+      "speed_mts": 1867,
+      "swap_backends": [
+        {
+          "kind": "file",
+          "name": "/swapfile",
+          "priority": 5,
+          "size_bytes": 8589930496,
+          "used_bytes": 2608881664
+        },
+        {
+          "kind": "zram",
+          "name": "/dev/zram0",
+          "priority": 100,
+          "size_bytes": 4294963200,
+          "used_bytes": 4240973824
+        }
+      ],
+      "swap_total_bytes": 12884893696,
+      "swap_used_bytes": 6857379840,
+      "tmpfs_used_bytes": 339779584,
+      "total_bytes": 15984377856,
+      "upgradeable": false,
+      "used_bytes": 8651292672
+    },
+    "network": [
+      {
+        "is_up": true,
+        "kind": "wifi",
+        "link_mbps": null,
+        "mac": "f8:94:c2:86:85:62",
+        "name": "wlp4s0"
+      },
+      {
+        "is_up": false,
+        "kind": "ethernet",
+        "link_mbps": null,
+        "mac": "54:e1:ad:bd:90:8d",
+        "name": "enp0s31f6"
+      }
+    ],
+    "probe_notes": [
+      "some drives returned no SMART data (usually needs administrator rights)"
+    ],
+    "storage": [
+      {
+        "bus": "pcie",
+        "firmware": "SBM02103",
+        "is_removable": false,
+        "is_system_disk": true,
+        "kind": "nvme",
+        "link_speed": "PCIe 8.0 GT/s x4",
+        "model": "KINGSTON SNV2S2000G",
+        "name": "nvme0n1",
+        "serial": null,
+        "size_bytes": 2000398934016,
+        "smart": null,
+        "temperature_c": 51.849998474121094
+      },
+      {
+        "bus": "usb",
+        "firmware": "0103",
+        "is_removable": true,
+        "is_system_disk": false,
+        "kind": "hdd",
+        "link_speed": null,
+        "model": "Generic DISK03",
+        "name": "sdd",
+        "serial": null,
+        "size_bytes": 1000204886016,
+        "smart": null,
+        "temperature_c": null
+      },
+      {
+        "bus": "usb",
+        "firmware": "0103",
+        "is_removable": true,
+        "is_system_disk": false,
+        "kind": "hdd",
+        "link_speed": null,
+        "model": "Generic DISK01",
+        "name": "sdb",
+        "serial": null,
+        "size_bytes": 500107862016,
+        "smart": null,
+        "temperature_c": null
+      },
+      {
+        "bus": "usb",
+        "firmware": "0103",
+        "is_removable": true,
+        "is_system_disk": false,
+        "kind": "hdd",
+        "link_speed": null,
+        "model": "Generic DISK04",
+        "name": "sde",
+        "serial": null,
+        "size_bytes": 18000207937536,
+        "smart": null,
+        "temperature_c": null
+      },
+      {
+        "bus": "usb",
+        "firmware": "0103",
+        "is_removable": true,
+        "is_system_disk": false,
+        "kind": "hdd",
+        "link_speed": null,
+        "model": "Generic DISK02",
+        "name": "sdc",
+        "serial": null,
+        "size_bytes": 1000204886016,
+        "smart": null,
+        "temperature_c": null
+      },
+      {
+        "bus": "usb",
+        "firmware": "0103",
+        "is_removable": true,
+        "is_system_disk": false,
+        "kind": "hdd",
+        "link_speed": null,
+        "model": "Generic DISK00",
+        "name": "sda",
+        "serial": null,
+        "size_bytes": 1000204886016,
+        "smart": null,
+        "temperature_c": null
+      }
+    ],
+    "system": {
+      "android_version": null,
+      "arch": "x86_64",
+      "bios_version": "N1MET77W (1.62 )",
+      "boot_count_unclean": null,
+      "chassis": "laptop",
+      "device_model": null,
+      "hostname": null,
+      "is_rooted": null,
+      "kernel_version": "6.17.0-41-generic",
+      "os_name": "Ubuntu",
+      "os_version": "25.10",
+      "product": "ThinkPad X1 Carbon 5th",
+      "soc": null,
+      "uptime_secs": 14085,
+      "vendor": "LENOVO"
+    },
+    "taken_at": "2026-09-21T02:16:28.523258166+00:00",
+    "thermal": {
+      "cpu_c": 76.0,
+      "fan_rpm": [
+        5565
+      ],
+      "gpu_c": null,
+      "has_active_cooling": true,
+      "sensors": [
+        [
+          "iwlwifi_1 temp1",
+          63.0
+        ],
+        [
+          "pch_skylake temp1",
+          67.5
+        ],
+        [
+          "coretemp Core 0",
+          72.0
+        ],
+        [
+          "coretemp Core 1",
+          76.0
+        ],
+        [
+          "coretemp Package id 0",
+          76.0
+        ],
+        [
+          "thinkpad temp4",
+          0.0
+        ],
+        [
+          "thinkpad CPU",
+          74.0
+        ],
+        [
+          "thinkpad temp5",
+          0.0
+        ],
+        [
+          "thinkpad temp8",
+          0.0
+        ],
+        [
+          "thinkpad temp7",
+          0.0
+        ],
+        [
+          "thinkpad temp6",
+          0.0
+        ],
+        [
+          "thinkpad temp3",
+          0.0
+        ],
+        [
+          "nvme Composite KINGSTON SNV2S2000G",
+          51.849998474121094
+        ],
+        [
+          "acpitz temp1",
+          74.0
+        ],
+        [
+          "x86_pkg_temp",
+          75.0
+        ]
+      ]
+    }
+  },
+  "summary": {
+    "battery": "45%",
+    "cpu": "Intel Core i7-7500U · 2C/4T",
+    "gpu": "HD Graphics 620",
+    "health_score": 65,
+    "machine": "LENOVO ThinkPad X1 Carbon 5th",
+    "memory": "16 GB LPDDR3",
+    "os": "Ubuntu 25.10",
+    "storage": "1.8 TiB NVMe"
+  }
+}

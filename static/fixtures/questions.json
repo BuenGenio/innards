@@ -1,0 +1,61 @@
+[
+  {
+    "id": "uses",
+    "multi": true,
+    "options": [
+      "everyday",
+      "web_dev",
+      "containers",
+      "home_server",
+      "portable_server",
+      "photo_editing",
+      "heavy_compile",
+      "video_editing",
+      "local_llm",
+      "edge_ai",
+      "gaming",
+      "ml_training"
+    ]
+  },
+  {
+    "id": "pains",
+    "multi": true,
+    "options": [
+      "slow",
+      "out_of_memory",
+      "storage",
+      "battery",
+      "heat_noise",
+      "crashes",
+      "none"
+    ]
+  },
+  {
+    "id": "budget",
+    "multi": false,
+    "options": [
+      "under_100",
+      "under_300",
+      "under_800",
+      "under_1500",
+      "no_limit"
+    ]
+  },
+  {
+    "id": "horizon",
+    "multi": false,
+    "options": [
+      "now",
+      "six_months",
+      "year"
+    ]
+  },
+  {
+    "id": "portability",
+    "multi": false,
+    "options": [
+      "yes",
+      "no"
+    ]
+  }
+]

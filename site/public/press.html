@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Press kit: facts, screenshots, quotes — Innards</title>
+  <meta name="description" content="Boilerplate, key facts, CC0 screenshots, quotes and contact for covering Innards, the open-source app that explains your hardware in plain language.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://innards.app/press">
+  <meta name="author" content="Eugene Trotsan">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161513" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+  <link rel="stylesheet" href="style.css">
+  <script src="site.js" defer></script>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Innards">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Press kit: facts, screenshots, quotes — Innards">
+  <meta property="og:description" content="Boilerplate, key facts, CC0 screenshots, quotes and contact for covering Innards, the open-source app that explains your hardware in plain language.">
+  <meta property="og:url" content="https://innards.app/press">
+  <meta property="og:image" content="https://innards.app/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Press kit: facts, screenshots, quotes — Innards">
+  <meta name="twitter:description" content="Boilerplate, key facts, CC0 screenshots, quotes and contact for covering Innards, the open-source app that explains your hardware in plain language.">
+  <meta name="twitter:image" content="https://innards.app/og.png">
+  <meta name="twitter:image:alt" content="Innards — Look inside your machine. A report card with a health score and three plain-language findings.">
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Person",
+   "@id": "https://innards.app/#eugene",
+   "name": "Eugene Trotsan",
+   "url": "https://github.com/buengenio",
+   "email": "mailto:eugene.trotsan@gmail.com",
+   "sameAs": [
+    "https://github.com/buengenio"
+   ]
+  },
+  {
+   "@type": "WebPage",
+   "url": "https://innards.app/press",
+   "name": "Press kit",
+   "isPartOf": {
+    "@id": "https://innards.app/#website"
+   },
+   "about": {
+    "@id": "https://innards.app/#app"
+   },
+   "inLanguage": "en"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Innards",
+     "item": "https://innards.app/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Press kit",
+     "item": "https://innards.app/press"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Does it need root / administrator?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Everything except SMART drive health reads without elevated rights. SMART is an opt-in checkbox that triggers the normal system password prompt."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does it send my data anywhere?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. The free app makes no network requests. The Supporter narration feature is opt-in and sends only the already-rendered findings to the Claude API using a key you provide."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why pay if it's open source?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You don't have to. The paid tiers fund development and unlock convenience features (advisor, narration, shopping links). The code for them is in the same repo."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What does the AI feature actually do?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It rephrases the structured findings into a short narrative. It does not diagnose anything itself; the rules do."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Will it run on my Raspberry Pi / VM / Steam Deck?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Linux builds run anywhere WebKitGTK does. VMs are detected and battery/thermal findings are suppressed. A command-line build for aarch64 (postmarketOS and Termux on phones) is in progress; ARM desktop builds are on the roadmap."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do license keys work?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Offline Ed25519-signed keys, verified locally. Supporter keys never expire and are never checked online. Pro and Team subscription keys within 30 days of expiry contact innards.app/api/license/refresh once at startup for a renewed key, sending only the key itself."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I add my language?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Copy crates/innards-core/i18n/en.json, translate, add one line to i18n.rs. A test checks you didn't miss a string."
+     }
+    }
+   ]
+  }
+ ]
+}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Innards home"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/download">Download</a><a href="/pricing">Pricing</a><a href="/guides/">Guides</a><a href="/privacy">Privacy</a><a href="/press" aria-current="page">Press</a>
+      <a href="https://github.com/buengenio/innards" rel="noopener">GitHub</a>
+      <a class="btn primary" href="/download">Get Innards</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">Press kit</span>
+    <h1>Everything you need to cover Innards.</h1>
+    <p class="lead">Quote freely. Screenshots are CC0. Review builds and license keys for reviewers on request.</p>
+    <div class="btn-row" style="margin-top:24px">
+      <a class="btn primary" href="mailto:eugene.trotsan@gmail.com?subject=Innards%20press">Contact Eugene</a>
+      <a class="btn" href="https://github.com/buengenio/innards/tree/main/docs/press-kit" rel="noopener">Press kit on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<section class="section tight">
+  <div class="wrap">
+    <div class="grid cols-2">
+      <div class="prose">
+        <h2>One-liner</h2>
+        <p><strong>Innards looks inside your computer and tells you, in plain language, what's wrong, what it's still good for, and what's actually worth buying.</strong></p>
+        <h2>Short description</h2>
+        <p>Innards is a free, open-source desktop app for Linux, macOS and Windows that inspects your machine — CPU, memory, drives, battery, thermals — and explains what it finds at the level of detail you choose, in your language. It scores what the computer is still good for and, optionally, recommends upgrades that are worth the money.</p>
+        <h2>Long description</h2>
+        <p>Most hardware tools show you numbers. Innards tells you what they mean.</p>
+        <p>Run it and in about a second you get a health score, a short verdict, and a bulleted report sorted by what needs attention now, what's worth fixing, what's good to know, and what's working well. Every item can be read three ways — <em>plain</em> for someone who doesn't want jargon, <em>informed</em> for a comfortable user, <em>expert</em> for people who want <code>percentage_used=1%</code> and <code>unsafe_shutdowns=69</code> with the raw evidence attached. Switch language and level at any time; the same findings re-render instantly.</p>
+        <p>Below the findings, Innards answers the question people actually have about an ageing machine: <em>what is it still good for?</em> Ten workloads, from everyday use to running AI models locally, each with a grade and the limiting factor named.</p>
+        <p>The upgrade advisor asks five questions and returns a ranked, costed list — free software fixes first, and honest when the answer is "keep it" or "this chassis can't get you there." A Pro tier adds where to buy each item new, refurbished or used.</p>
+        <p>Nothing leaves the machine. No account, no telemetry. Rust + Tauri, MIT licensed.</p>
+      </div>
+      <div>
+        <h2 style="margin-bottom:16px">Key facts</h2>
+        <dl class="facts">
+          <div><dt>Product</dt><dd>Innards</dd></div>
+          <div><dt>Category</dt><dd>System utility / hardware diagnostics</dd></div>
+          <div><dt>Platforms</dt><dd>Linux (deb, AppImage, rpm), macOS (dmg, Apple silicon + Intel), Windows (msi, exe)</dd></div>
+          <div><dt>Price</dt><dd>Free core. Supporter $9 one-time (pay what you want from $5). Pro $29/year. Team $4 per machine/month or $39 per machine/year (minimum 5 machines). Enterprise custom, from $2,500/year.</dd></div>
+          <div><dt>License</dt><dd>MIT. Paid features are gated by offline license keys, but their code is public.</dd></div>
+          <div><dt>Tech</dt><dd>Rust engine, Tauri 2 shell, Svelte 5 UI. About 8 MB download on Linux.</dd></div>
+          <div><dt>Phones</dt><dd>In progress: a command-line build for postmarketOS and Termux (a rooted OnePlus 6T as a pocket server is a real test case). Not shipped yet.</dd></div>
+          <div><dt>Languages</dt><dd>English, Spanish. More via a single JSON file; translations welcome.</dd></div>
+          <div><dt>Privacy</dt><dd>No network access in the free tier. Narrated summaries call the Claude API with the user's own key and send only rendered findings.</dd></div>
+          <div><dt>Source</dt><dd><a href="https://github.com/buengenio/innards" rel="noopener">github.com/buengenio/innards</a></dd></div>
+          <div><dt>Website</dt><dd>innards.app</dd></div>
+          <div><dt>Developer</dt><dd>Eugene Trotsan, independent</dd></div>
+          <div><dt>Origin</dt><dd>Ubuntu 25.10 on a 2017 ThinkPad X1 Carbon: Innards' own first patient</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="grid cols-2">
+      <div class="prose">
+        <h2>Why it exists</h2>
+        <p>Innards started as a debugging session: a ThinkPad that hung on reboot and couldn't write its own logs. Working through <code>journalctl</code>, <code>nvme smart-log</code> and <code>/sys</code> by hand surfaced a drive that had been at critical temperature for 4½ hours of its life, 69 unsafe shutdowns, a battery at 45%, and — the real culprit — no swap at all on a 16 GB machine running a home server. None of that was hard to find. All of it was hard to <em>read</em>. Innards is that afternoon, turned into a tool anyone can run.</p>
+        <h2>What makes it different</h2>
+        <ul>
+          <li><strong>Three reading levels of the same report.</strong> Not a "simple mode" that hides things: the same findings, phrased for three audiences, with the raw evidence one click away.</li>
+          <li><strong>"What is it still good for?"</strong> Capability grades per workload, with the limiting part named.</li>
+          <li><strong>An advisor that will tell you not to spend.</strong> Free fixes rank first. Soldered RAM and no GPU slot are called out as the reason to change machine, not a part.</li>
+          <li><strong>Rules, not a black box.</strong> Every finding is a small, readable rule with a threshold you can check in the source. The optional AI narration only rephrases findings the rules already produced.</li>
+          <li><strong>Local by default.</strong> The report never leaves the machine unless the user exports it.</li>
+        </ul>
+      </div>
+      <div>
+        <h2 style="margin-bottom:20px">Quotes you can use</h2>
+        <div class="quotes">
+          <blockquote>"Every hardware tool I'd used showed me numbers. I wanted one that would tell my mother what the numbers meant, and tell me the raw values in the same window."<cite>Eugene Trotsan, creator</cite></blockquote>
+          <blockquote>"The best upgrade advice is sometimes 'don't'. Innards will say that."<cite>Eugene Trotsan</cite></blockquote>
+        </div>
+        <h2 style="margin:36px 0 12px">Suggested angles</h2>
+        <ul class="prose">
+          <li><strong>Linux:</strong> a Rust/Tauri utility that reads <code>/sys</code>, <code>/proc</code>, DMI, hwmon and SMART without root, explains them, and packages as deb/AppImage/rpm. The expert level is written for your readers.</li>
+          <li><strong>General tech:</strong> "Is my old laptop still good for anything?", answered per workload, with an upgrade advisor that's honest about when the answer is no.</li>
+          <li><strong>Privacy:</strong> hardware diagnostics that never phone home; the only network feature is opt-in and uses your own API key.</li>
+          <li><strong>Open source:</strong> MIT code with paid tiers gated by offline Ed25519 keys, a small experiment in sustainable indie desktop software.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="screenshots">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Screenshots</h2>
+      <p class="lead">All 1180 px wide, PNG, CC0. The machine in every screenshot is real: a 2017 ThinkPad X1 Carbon 5th gen used as a home server.</p>
+    </div>
+    <div class="gallery"><figure><div class="shot crop"><img src="screenshots/report-light-en.png" width="1180" height="1500" alt="Innards report for a 2017 ThinkPad X1 Carbon at the informed level, light theme: health ring, verdict, findings sorted by severity and capability grades" loading="lazy"></div><figcaption>Report view, informed level, light theme, Supporter tier. <a href="screenshots/report-light-en.png">Full size</a></figcaption></figure><figure><div class="shot crop"><img src="screenshots/report-plain-light-en.png" width="1180" height="1300" alt="The same report at the plain level, free tier: jargon-free finding bodies and the Supporter paywall in the summary card" loading="lazy"></div><figcaption>Same report at the plain level. <a href="screenshots/report-plain-light-en.png">Full size</a></figcaption></figure><figure><div class="shot crop"><img src="screenshots/report-expert-dark-en.png" width="1180" height="1300" alt="The same report at the expert level in the dark theme, with raw field names in the finding bodies and Evidence toggles" loading="lazy"></div><figcaption>Same report at the expert level, dark theme, evidence toggles. <a href="screenshots/report-expert-dark-en.png">Full size</a></figcaption></figure><figure><div class="shot crop"><img src="screenshots/advisor-visual-light-en.png" width="1180" height="1250" alt="Upgrade advisor in the visual view: numbered recommendations plotted by estimated cost and gain, with a dashed budget line" loading="lazy"></div><figcaption>Upgrade advisor, visual view: recommendations plotted by cost and gain against a budget. <a href="screenshots/advisor-visual-light-en.png">Full size</a></figcaption></figure></div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>FAQ</h2>
+    </div>
+    <div class="grid cols-2 prose" style="max-width:none">
+      <div>
+        <h3>Does it need root / administrator?</h3>
+        <p>No. Everything except SMART drive health reads without elevated rights. SMART is an opt-in checkbox that triggers the normal system password prompt.</p>
+        <h3>Does it send my data anywhere?</h3>
+        <p>No. The free app makes no network requests. The Supporter narration feature is opt-in and sends only the already-rendered findings to the Claude API using a key you provide.</p>
+        <h3>Why pay if it's open source?</h3>
+        <p>You don't have to. The paid tiers fund development and unlock convenience features (advisor, narration, shopping links). The code for them is in the same repo.</p>
+      </div>
+      <div>
+        <h3>What does the AI feature actually do?</h3>
+        <p>It rephrases the structured findings into a short narrative. It does not diagnose anything itself; the rules do.</p>
+        <h3>Will it run on my Raspberry Pi / VM / Steam Deck?</h3>
+        <p>Linux builds run anywhere WebKitGTK does. VMs are detected and battery/thermal findings are suppressed. A command-line build for aarch64 (postmarketOS and Termux on phones) is in progress; ARM desktop builds are on the roadmap.</p>
+        <h3>How do license keys work?</h3>
+        <p>Offline Ed25519-signed keys, verified locally. Supporter keys never expire and are never checked online. Pro and Team subscription keys within 30 days of expiry contact innards.app/api/license/refresh once at startup for a renewed key, sending only the key itself.</p>
+        <h3>How do I add my language?</h3>
+        <p>Copy <code>crates/innards-core/i18n/en.json</code>, translate, add one line to <code>i18n.rs</code>. A test checks you didn't miss a string.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap narrow">
+    <h2 style="margin-bottom:12px">Contact</h2>
+    <p class="lead">Eugene Trotsan — <a href="mailto:eugene.trotsan@gmail.com">eugene.trotsan@gmail.com</a>. Review builds and license keys for reviewers on request.</p>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="/"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false"><rect x="6" y="6" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.2"/><path d="M6 12H3M6 16H3M6 20H3M29 12h-3M29 16h-3M29 20h-3M12 6V3M16 6V3M20 6V3M12 29v-3M16 29v-3M20 29v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 16.5h3l1.8-4.5 2.6 8 2-3.5h3.6" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Innards</a>
+      <p>Look inside your machine. A free, open-source hardware report for Linux, macOS and Windows that explains itself in plain language.</p>
+    </div>
+    <div>
+      <h2>Product</h2>
+      <ul>
+        <li><a href="/download">Download</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="https://github.com/buengenio/innards/releases/latest" rel="noopener">Releases</a></li>
+        <li><a href="https://github.com/buengenio/innards" rel="noopener">Source on GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Resources</h2>
+      <ul>
+        <li><a href="/guides/">Guides</a></li>
+        <li><a href="https://github.com/buengenio/innards/tree/main/docs" rel="noopener">Documentation</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/docs/ARCHITECTURE.md" rel="noopener">Architecture</a></li>
+        <li><a href="https://github.com/buengenio/innards/issues" rel="noopener">Report an issue</a></li>
+        <li><a href="/press">Press kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Company</h2>
+      <ul>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="https://github.com/buengenio/innards/blob/main/LICENSE" rel="noopener">MIT license</a></li>
+        <li><a href="mailto:eugene.trotsan@gmail.com">Contact</a></li>
+      </ul>
+    </div>
+    <div class="colophon">
+      <span>© 2026 Eugene Trotsan. Innards is MIT licensed.</span>
+      <span>This site sets no cookies and makes no third-party requests.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,253 @@
+{
+  "lang": "es",
+  "level": "informed",
+  "summary": {
+    "machine": "LENOVO ThinkPad X1 Carbon 5th",
+    "cpu": "Intel Core i7-7500U · 2C/4T",
+    "memory": "16 GB LPDDR3",
+    "storage": "1.8 TiB NVMe",
+    "gpu": "HD Graphics 620",
+    "os": "Ubuntu 25.10",
+    "battery": "45%",
+    "health_score": 65
+  },
+  "verdict": "Un problema necesita atención pronto, además de 5 menor(es).",
+  "findings": [
+    {
+      "id": "storage.fs_nearly_full",
+      "severity": "critical",
+      "category": "Almacenamiento",
+      "title": "/mnt/sdc1 está al 99.5%",
+      "body": "/mnt/sdc1 está al 99.5% (3.8 GiB de 830 GiB libres). Escribir en un disco casi lleno es lento.",
+      "action": "Libera espacio o mueve datos a otro sitio.",
+      "evidence": []
+    },
+    {
+      "id": "storage.fs_nearly_full",
+      "severity": "warning",
+      "category": "Almacenamiento",
+      "title": "/media/buengenio/sda4 está al 90.5%",
+      "body": "/media/buengenio/sda4 está al 90.5% (62.9 GiB de 661 GiB libres). Escribir en un disco casi lleno es lento.",
+      "action": "Libera espacio o mueve datos a otro sitio.",
+      "evidence": []
+    },
+    {
+      "id": "cpu.old",
+      "severity": "warning",
+      "category": "Procesador",
+      "title": "El procesador tiene unos 9 años",
+      "body": "Intel Core i7-7500U (~2017). Una CPU de gama media actual es 2–4 veces más rápida por núcleo y tiene 3–4 veces más núcleos.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "battery.worn",
+      "severity": "warning",
+      "category": "Batería",
+      "title": "La batería conserva el 45.3% de su capacidad original",
+      "body": "45.3% de salud, 1729 ciclos. Por debajo de ~60% merece la pena cambiarla si la usas sin enchufar.",
+      "action": "Cambia la batería si te importa la movilidad.",
+      "evidence": []
+    },
+    {
+      "id": "system.high_load",
+      "severity": "warning",
+      "category": "Sistema",
+      "title": "El sistema está muy cargado",
+      "body": "Carga media de 5 minutos 13.6 en 4.0 CPUs. Algo está saturando el procesador.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "system.io_wait_high",
+      "severity": "warning",
+      "category": "Sistema",
+      "title": "Esperando a los discos el 34.7% del tiempo",
+      "body": "La espera de E/S es del 34.7%. Un disco lento u ocupado (a menudo USB) frena todo lo demás.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "memory.soldered",
+      "severity": "info",
+      "category": "Memoria",
+      "title": "La memoria no se puede ampliar",
+      "body": "16 GB LPDDR3 soldados. Lo que tienes ahora es el techo de este equipo.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "storage.smart_unavailable",
+      "severity": "info",
+      "category": "Almacenamiento",
+      "title": "No se pudo leer la salud de los discos",
+      "body": "Los datos SMART no estaban disponibles (requiere smartmontools y normalmente permisos elevados).",
+      "action": "Instala smartmontools y vuelve a ejecutar con permisos elevados.",
+      "evidence": []
+    },
+    {
+      "id": "cpu.few_cores",
+      "severity": "info",
+      "category": "Procesador",
+      "title": "Solo 2 núcleos de CPU",
+      "body": "2 núcleos / 4 hilos. Bien para uso diario; compilaciones, vídeo y contenedores estarán limitados por CPU.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "gpu.integrated_only",
+      "severity": "info",
+      "category": "Gráficos",
+      "title": "Los gráficos van integrados en el procesador",
+      "body": "HD Graphics 620 integrada. La decodificación de vído por hardware funciona; cómputo GPU y juegos quedan fuera.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "memory.swap_ok",
+      "severity": "good",
+      "category": "Memoria",
+      "title": "Swap configurada",
+      "body": "Hay 12.0 GiB de swap disponibles (8.0 GiB (File, prio 5), 4.0 GiB (Zram, prio 100)). Los picos de memoria ralentizarán en vez de matar programas.",
+      "action": null,
+      "evidence": []
+    },
+    {
+      "id": "storage.system_nvme",
+      "severity": "good",
+      "category": "Almacenamiento",
+      "title": "Disco de sistema NVMe rápido",
+      "body": "KINGSTON SNV2S2000G (1.8 TiB) por NVMe PCIe 8.0 GT/s x4. El almacenamiento no es tu cuello de botella.",
+      "action": null,
+      "evidence": []
+    }
+  ],
+  "capabilities": [
+    {
+      "workload": "everyday",
+      "label": "Uso diario (web, ofimática, multimedia)",
+      "score": 96,
+      "grade": "great",
+      "grade_label": "Excelente",
+      "limits": []
+    },
+    {
+      "workload": "web_dev",
+      "label": "Desarrollo web y de apps",
+      "score": 76,
+      "grade": "good",
+      "grade_label": "Bien",
+      "limits": [
+        "pocos núcleos de CPU",
+        "memoria insuficiente"
+      ]
+    },
+    {
+      "workload": "containers",
+      "label": "Docker / contenedores",
+      "score": 54,
+      "grade": "ok",
+      "grade_label": "Aceptable",
+      "limits": [
+        "pocos núcleos de CPU",
+        "memoria insuficiente"
+      ]
+    },
+    {
+      "workload": "home_server",
+      "label": "Servidor doméstico / autoalojamiento",
+      "score": 75,
+      "grade": "good",
+      "grade_label": "Bien",
+      "limits": [
+        "memoria insuficiente"
+      ]
+    },
+    {
+      "workload": "portable_server",
+      "label": "Servidor doméstico/nube portátil (servicios autoalojados donde vayas)",
+      "score": 88,
+      "grade": "great",
+      "grade_label": "Excelente",
+      "limits": [
+        "pocos núcleos de CPU"
+      ]
+    },
+    {
+      "workload": "photo_editing",
+      "label": "Edición de fotos",
+      "score": 28,
+      "grade": "poor",
+      "grade_label": "Le cuesta",
+      "limits": [
+        "memoria insuficiente",
+        "sin gráfica dedicada"
+      ]
+    },
+    {
+      "workload": "heavy_compile",
+      "label": "Compilaciones grandes (C++, Rust, kernels)",
+      "score": 24,
+      "grade": "unsuitable",
+      "grade_label": "No apto",
+      "limits": [
+        "pocos núcleos de CPU",
+        "memoria insuficiente"
+      ]
+    },
+    {
+      "workload": "video_editing",
+      "label": "Edición de vídeo",
+      "score": 21,
+      "grade": "unsuitable",
+      "grade_label": "No apto",
+      "limits": [
+        "pocos núcleos de CPU",
+        "memoria insuficiente",
+        "sin gráfica dedicada"
+      ]
+    },
+    {
+      "workload": "local_llm",
+      "label": "Ejecutar modelos de IA en local",
+      "score": 28,
+      "grade": "poor",
+      "grade_label": "Le cuesta",
+      "limits": [
+        "sin GPU dedicada"
+      ]
+    },
+    {
+      "workload": "edge_ai",
+      "label": "IA en el dispositivo: clasificar, indexar, modelos pequeños",
+      "score": 81,
+      "grade": "good",
+      "grade_label": "Bien",
+      "limits": [
+        "pocos núcleos de CPU"
+      ]
+    },
+    {
+      "workload": "gaming",
+      "label": "Juegos actuales",
+      "score": 23,
+      "grade": "unsuitable",
+      "grade_label": "No apto",
+      "limits": [
+        "pocos núcleos de CPU",
+        "sin GPU dedicada"
+      ]
+    },
+    {
+      "workload": "ml_training",
+      "label": "Entrenamiento de ML / cómputo GPU",
+      "score": 4,
+      "grade": "unsuitable",
+      "grade_label": "No apto",
+      "limits": [
+        "sin GPU dedicada"
+      ]
+    }
+  ],
+  "notes": []
+}

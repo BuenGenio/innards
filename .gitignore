@@ -1,0 +1,16 @@
+# Rust
+/target
+# Node
+node_modules
+/build
+/.svelte-kit
+# Tauri
+/src-tauri/gen/schemas
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+# Never commit signing keys
+signing.key
+*.key
+.dev.vars
