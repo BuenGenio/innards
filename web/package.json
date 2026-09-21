@@ -2,7 +2,7 @@
   "name": "innards-web",
   "version": "0.1.0",
   "private": true,
-  "description": "Marketing site for innards \u2014 innards.app",
+  "description": "Marketing site for innards \u2014 innards.io",
   "type": "module",
   "scripts": {
     "dev": "vite dev",

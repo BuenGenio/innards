@@ -8,6 +8,10 @@ workers_dev = true
 # Custom domains — top-level key (must come BEFORE any [table] header).
 # The zone must live in the same Cloudflare account; wrangler creates the DNS records + certs.
 routes = [
+  { pattern = "innards.io", custom_domain = true },
+  { pattern = "www.innards.io", custom_domain = true },
+  # innards.app is also owned; it serves the same build (canonicals point at innards.io).
+  # A zone-level Redirect Rule .app -> .io is the cleaner long-term setup.
   { pattern = "innards.app", custom_domain = true },
   { pattern = "www.innards.app", custom_domain = true },
 ]

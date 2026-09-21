@@ -1,4 +1,4 @@
-# innards.app
+# innards.io
 
 Marketing site for innards. SvelteKit (static prerender) → Cloudflare Workers static assets. No server code, no analytics, no third-party requests (fonts are self-hosted; the download page calls the GitHub releases API from the browser).
 
@@ -11,7 +11,7 @@ pnpm wrangler deploy --env preview   # workers.dev preview
 pnpm deploy                       # production (custom domain routes in wrangler.toml)
 ```
 
-`VITE_SITE_URL` (default `https://innards.app`) is baked into canonical/OG URLs and the sitemap at build time.
+`VITE_SITE_URL` (default `https://innards.io`) is baked into canonical/OG URLs and the sitemap at build time.
 
 ## Where the demo data comes from
 
